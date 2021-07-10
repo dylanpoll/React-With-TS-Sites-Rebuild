@@ -1,2 +1,3 @@
 # React-With-TS-Tutorial-back-front
  
+Currently working on this to learn TS and how to work React with TS. I am following a tutorial by Ben Awad, after I complete the initial tutorial I plan to re create the deployment from the start and make a base to re launch my prior personal website projects with. the tutorial I am following by Ben is : https://www.youtube.com/watch?v=I6ypD7qv3Z8 and this repo will have the notation and commentary I leave as I learn the technologies I am not as familiar with along with notating what I am already familiar with as a helpful aid to any who look at this later on as a learning resource.
