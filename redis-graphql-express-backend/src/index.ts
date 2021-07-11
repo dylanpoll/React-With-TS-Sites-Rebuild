@@ -10,7 +10,7 @@ import { buildSchema } from "type-graphql";
 import { PostResolver } from "./resolvers/post";
 import { UserResolver } from './resolvers/user';
 import { MyContext } from './types';
-import Redis from "ioredis";
+import Redis from "ioredis";            //redis idle client timeout is set to 300 seconds at current. I am currently using my VPS hosted redis for development https://redis.io/commands/auth for more info on the params I am using
 import session from "express-session";
 import connectRedis from 'connect-redis';
     const main = async () => {
@@ -18,7 +18,7 @@ import connectRedis from 'connect-redis';
         const app = express();
         // @ts-ignore
         const RedisStore = connectRedis(session);
-        const redis = new Redis(process.env.REDIS_URL);
+        const redis = new Redis(process.env.REDIS_URL_VPS, { password: process.env.REDIS_PASSWORD });
         app.set("trust proxy", 1); //the following for trust proxy and the next app.use are about setting up cors. see https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
         app.use( cors({ origin: process.env.CORS_ORIGIN, credentials: true, }) );
         app.use(// @ts-ignore
@@ -40,7 +40,7 @@ import connectRedis from 'connect-redis';
             resave: false,
             })
         );
-        // @ts-ignore
+        // @ts-ignore 
         const apolloServer = new ApolloServer({ schema: await buildSchema({ resolvers: [PostResolver, UserResolver], validate: false }), context: ({req, res}): MyContext =>  ({ em: orm.em, req, res }), }); // apollo is running the middlewares working with graphQL this contains type definitions for it to use among other things.
         apolloServer.applyMiddleware({ app });
         app.listen(4000, () => { console.log('express is running'); });

@@ -5,16 +5,16 @@ import path from "path";
 import { User } from "./entities/User";
 require('dotenv/config');
 
-const dbUser = process.env.MIKRO_ORM_USER;
-const dbUserPassword = process.env.MIKRO_ORM_PASSWORD;
+const dbUser = process.env.POSTGTRES_USER;
+const dbUserPassword = process.env.POSTGTRES_PASSWORD;
 const dbName = process.env.DBNAME;
-//const  = process.env.;
+const host = process.env.DATABASE_URL;  //when NOT in prod
 //const  = process.env.;
 
 export default { //using a .env    https://mikro-orm.io/docs/configuration/#using-environment-variables 
     user: dbUser,
     password: dbUserPassword,      
-    //host: 'localhost:5423',
+    host: host, 
     migrations: {
             tableName: 'mikro_orm_migrations', // name of database table with log of executed transactions
             path: path.join(__dirname,'./migrations'), // path to the folder with migrations

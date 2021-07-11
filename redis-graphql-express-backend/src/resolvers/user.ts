@@ -52,7 +52,7 @@ export class UserResolver{
                 const valid = await argon2.verify(user.password, options.password);
                     if(!valid){ return{ errors: [ { field: "password", message: "incorrect password", }, ], }; };
         //@ts-ignore
-        //req.session.testkey = "this is a test key";            // you can create and map keys as you please and assign objects as well.
+        req.session.testkey = ("this is a test key assigned to "+user.username);            // you can create and map keys as you please and assign objects as well.
         req.session.userId = user.id;   //this stores the userId value in as a session cookie that allows them to stay logged in.
         return {user};
         }//graphQL post to use : mutation{login(options: {username:"bobs", password:"dylan"}){errors{field message}user{id username}}}
