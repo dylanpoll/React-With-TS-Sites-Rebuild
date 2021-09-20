@@ -1,11 +1,11 @@
 import { createClient, dedupExchange, fetchExchange } from 'urql';
 import { cacheExchange, QueryInput, Cache } from '@urql/exchange-graphcache';
 import { LoginMutation, LogoutMutation, MeDocument, MeQuery, RegisterMutation } from '../generated/graphql';
-import { GRAPHQL_URL } from '../resources/constants';
+import { GRAPHQL_URL } from '../constants';
 
 function typedCacheUpdateQuery<Result, Query>(//used this to enforce type definitions will review and look for better options.
-    cache: Cache,
-    qi: QueryInput,
+    cache: Cache,                             //this function is more or less creating a local object to position the managed data for updating the cache
+    qi: QueryInput,                           //this needs to be optimized later but doing this allows me to enforce types without linter or runtime errors
     result: any,
     fn: (r: Result, q: Query) => Query
   ){

@@ -2,9 +2,10 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { Provider, createClient } from 'urql'
 import theme from '../theme'
 import { AppProps } from 'next/app'
+import { GRAPHQL_URL } from '../constants'
 
 const client = createClient({ 
-  url: "http://localhost:4000/graphql", 
+  url: GRAPHQL_URL, 
   fetchOptions: {
     credentials: "include",
   }

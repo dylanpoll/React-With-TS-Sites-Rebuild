@@ -30,6 +30,19 @@ this is being used to hook our graphQL instance to our website.
 yarn add -D @graphql-codegen/cli
 this is used to make react hooks easily.
 
+
+General JS/TS/REACT
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+hooks -> const [,] = example(); are using array deconstruction  
+position one or two may or may not be filled in however that is only stating that the object at the array position left blank is unused and will likely have a value pulled from elsewhere.
+
+
+
+
+
+
+
+
   backups
 
   {

@@ -1,0 +1,1 @@
+export const GRAPHQL_URL = "http://192.168.2.147:4000/graphql";
