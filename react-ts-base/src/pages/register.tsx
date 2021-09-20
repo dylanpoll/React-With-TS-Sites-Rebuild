@@ -1,34 +1,60 @@
 import React from "react";
 import {Formik, Form } from "formik";
-import { Input } from "@chakra-ui/react";
-import { FormControl, FormLabel } from "react-bootstrap";
+import { Input, FormControl, FormLabel, Box, Button } from "@chakra-ui/react";
 import { Wrapper } from "../components/wrapper";
-//import { useRouter } from "next/dist/client/router";
-
+import { InputField } from "../components/inputField";
+//import { useMutation } from "urql";
+import { useRegisterMutation } from "../generated/graphql";
+import { toErrorMap } from "../utilities/errormap";
+import { useRouter } from "next/router"
 interface registerProps {}
 
+// eslint-disable-next-line no-empty-pattern
 const Register: React.FC<registerProps> = ({}) => {
-//    const router = useRouter();
+const router = useRouter();
+const [, register] = useRegisterMutation();
+
     return (
     <Wrapper>      
-        <Formik initialValues={{ username: "", password: "" }} onSubmit={ (values) => {console.log(values);} } >
-            {({values, handleChange}) => (
-                <Form>
-                    <FormControl>
-                        <FormLabel htmlFor="username">Username</FormLabel>
-                        <Input 
-                            value={values.username}
-                            onChange={handleChange}
-                            id="username" 
-                            placeholder="username" 
-                        />
-                        {/*<FormErrorMessage>{form.errors.name}</FormErrorMessage>*/}
-                    </FormControl>
-                </Form>
-            )}
-        </Formik>
-    </Wrapper>
-    );
+        <Formik 
+            initialValues={{ username: "", password: "" }} 
+                onSubmit={async ( values, {setErrors} ) => {
+                    console.log(values);
+                    const response = await register(values);
+                    if (response.data?.register.errors){ //if there are errors, no argument present makes this a true false for if the data is present or null
+                        setErrors(toErrorMap(response.data.register.errors));
+                    } else if (response.data?.register.user){ // if user data present is true
+                        router.push("/")  //this send the user back to the home page.
+                    }
+            }} 
+        >
+        {({ isSubmitting }) => (
+          <Form>
+          <InputField
+            name="username"
+            placeholder="Username"
+            label="Username"
+          />
+        {/*  
+         <Box mt={2}>
+            <InputField name="email" placeholder="email" label="Email" />
+          </Box>
+        */}
+          <Box mt={2}>
+            <InputField
+              name="password"
+              placeholder="Password"
+              label="Password"
+              type="password"
+            />
+          </Box>
+          
+          <Button mt={2} type="submit" isLoading={isSubmitting} > Register </Button>
+        </Form>
+      )}
+    </Formik>
+  </Wrapper>
+);
 };
 
 export default Register;

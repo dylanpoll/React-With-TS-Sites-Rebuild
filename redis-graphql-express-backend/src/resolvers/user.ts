@@ -2,6 +2,7 @@ import { MyContext } from "src/types";
 import { Resolver, Ctx, Arg, Mutation, InputType, Field, ObjectType, Query } from "type-graphql";
 import { User } from "../entities/User";
 import argon2 from "argon2";
+import { COOKIE_NAME } from "../constants";
 
 
 @InputType()                    //input types we use for arguments
@@ -20,6 +21,7 @@ class FieldError {
     @Field() message: string;
     }
 @Resolver()
+
 export class UserResolver{
 
     @Query( () => User, {nullable: true})   //this is used to check if you are logged in
@@ -56,5 +58,20 @@ export class UserResolver{
         req.session.userId = user.id;   //this stores the userId value in as a session cookie that allows them to stay logged in.
         return {user};
         }//graphQL post to use : mutation{login(options: {username:"bobs", password:"dylan"}){errors{field message}user{id username}}}
-
-    }
+    
+    @Mutation(()=> Boolean)
+        logout(
+            @Ctx() { req, res }: MyContext ){  
+                return new Promise( (terminate) => 
+                req.session.destroy( err => { // this line kills the established redis session 
+                    res.clearCookie(COOKIE_NAME); //this destroys the cookie stored client side.
+                    if(err){
+                        terminate(false);
+                        console.log(err);
+                        return;
+                    }
+                    terminate(true);
+                })
+            );
+        }//graphQL post to use : mutation{ logout }
+} 
