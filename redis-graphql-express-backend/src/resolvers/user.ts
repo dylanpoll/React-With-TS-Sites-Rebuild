@@ -66,8 +66,8 @@ export class UserResolver{
                 req.session.destroy( err => { // this line kills the established redis session 
                     res.clearCookie(COOKIE_NAME); //this destroys the cookie stored client side.
                     if(err){
-                        terminate(false);
                         console.log(err);
+                        terminate(false);
                         return;
                     }
                     terminate(true);

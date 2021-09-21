@@ -10,12 +10,12 @@ import { buildSchema } from "type-graphql";
 import { PostResolver } from "./resolvers/post";
 import { UserResolver } from './resolvers/user';
 import { MyContext } from './types';
-import Redis from "ioredis";            //redis idle client timeout is set to 300 seconds at current. I am currently using my VPS hosted redis for development https://redis.io/commands/auth for more info on the params I am using
+import Redis from "ioredis";//redis idle client timeout is set to 300 seconds at current. I am currently using my VPS hosted redis for development https://redis.io/commands/auth for more info on the params I am using
 import session from "express-session";
 import connectRedis from 'connect-redis';
 
     const main = async () => {
-        const orm = await MikroORM.init(mikroConfig);   // I will not be automating the migrations process as I would rather manually handle migrations.
+        const orm = await MikroORM.init(mikroConfig);// I will not be automating the migrations process as I would rather manually handle migrations.
         const app = express();
         // @ts-ignore
         const RedisStore = connectRedis(session);

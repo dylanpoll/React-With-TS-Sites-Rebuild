@@ -1,9 +1,8 @@
 import React from "react";
 import {Formik, Form } from "formik";
-import { Input, FormControl, FormLabel, Box, Button } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import { Wrapper } from "../components/wrapper";
 import { InputField } from "../components/inputField";
-//import { useMutation } from "urql";
 import { useRegisterMutation } from "../generated/graphql";
 import { toErrorMap } from "../utilities/errormap";
 import { useRouter } from "next/router"
