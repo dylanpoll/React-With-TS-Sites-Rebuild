@@ -1,24 +1,12 @@
 import {  Link as  Text,  Code,  useColorMode, Switch, Box, Flex} from '@chakra-ui/react';
+import { Banner } from '../components/banner';
+import { DarkModeSwitch } from '../components/darkModeSwitch';
 import { Navigation } from '../components/navigation';
-
-const DarkModeSwitch = () => {
-  const { colorMode, toggleColorMode } = useColorMode()
-  const isDark = colorMode === 'dark'
-  return (
-    <Switch
-      position="fixed"
-      top="1rem"
-      right="1rem"
-      color="green"
-      isChecked={isDark}
-      onChange={toggleColorMode}
-    />
-  )
-}
 
 const Index = () => (
   <div>
     <Navigation/>
+    <Banner />
     <Flex  
       direction="column"
       alignItems="center"

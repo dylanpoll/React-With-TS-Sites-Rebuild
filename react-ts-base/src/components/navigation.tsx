@@ -9,7 +9,7 @@ export const Navigation: React.FC<{}> = ({}) => {
     const router = useRouter();
     var body = null;
     const [{data, fetching}] = useMeQuery();    //fetching is a boolean value from URQL  https://formidable.com/open-source/urql/docs/api/urql/
-    const [ logout, { fetching: logoutFetching }] = useLogoutMutation(); // by defining fetching in this way we make it so it has a additional type def to avoid duplicate name conflicts
+    const [ { fetching: logoutFetching }, logout ] = useLogoutMutation(); // by defining fetching in this way we make it so it has a additional type def to avoid duplicate name conflicts
     //const [logout, { fetching: logoutFetching } ] = useLogoutMutation(); 
     // THIS POST IS SUPER HELPFUL https://github.com/FormidableLabs/urql/issues/559
     if(fetching){

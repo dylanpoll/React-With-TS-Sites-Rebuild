@@ -4,7 +4,8 @@ about chakra-ui
   kind of like bootstrap, its just a starter pack for react with a few good components that make front end a bit
 faster to deploy.
 
-Notes :
+Notes : there are issues with next and chackra compatability with image tags https://github.com/chakra-ui/chakra-ui/discussions/2475
+
 
 ISSUES WITH EMOTION/CORE -> EMOTION/REACT : boils down to a dependency declaration issue, many have this issue 
 https://github.com/emotion-js/emotion/issues/1606 -> old thread where the issue keeps being re stated, on the issues page of the repo many new listings still show it.
@@ -18,6 +19,9 @@ for any TS files that have react code we label them .tsx
 --nextJS
 IN NEXTJS all file names within the pages folder will be a route we can use based on the file name.
 a video covering basic information about the technology : https://www.youtube.com/watch?v=Sklc_fQBmcs
+essentially, it provides easy to use tools for a lot of things and also releases the sites as chunks to increase load times
+some tips for next https://www.youtube.com/watch?v=R59e1Vl5lO8
+examples and general lecture style explonation for next data fetching and serving props features to improve loading times and re rendinger of data
 
 --formik
 formik is kind of broken atm with the current release and when the tutorial was made it seems.
