@@ -14,8 +14,7 @@ import session from "express-session";
 import connectRedis from 'connect-redis';
 //import { emailTester } from "./nodeMailer/testEmailSender";
 
-/* this tells the system to only run debugging while in production mode, this works more or less by going in these steps
-as it is evaluating what the variable will equate out too before assigning it.
+/* this tells the system to only run debugging while in production mode, this works more or less by going in these steps as it is evaluating what the variable will equate out too before assigning it.
 1) process.env.Node_ENV === process.env.NODE_ENVIRONMENT; --> true or false | 2) assign result to __prod__ | 3) assign __prod__ as export*/
 export const __prod__: boolean = process.env.Node_ENV === 'production';  //if in production this will return false marking in the cookie -secure :false
 
@@ -30,31 +29,10 @@ const willReSave: boolean = process.env.COOKIE_RESAVE === 'true';
 const willSaveUninitialized: boolean = process.env.COOKIE_SAVEUNINITIALIZED === 'true';
 const apolloCors: boolean = process.env.APOLLO_CORS === 'true';
 
-function loadStatement(){
-    console.log('  ');
-    console.log('In Live Release(if false in production mode with debugging) : ', __prod__); // console lof if in prod or not 
-    console.log('  ');
-    console.log('Starting up with the following settings.');
-    console.log('CORS Origin: ', process.env.CORS_ORIGIN,', and ',trustProxy);
-    console.log('Max Cookie Age: ',maxCookieAge);
-    console.log('Disable Touch: ',willDisableTouch);
-    console.log('HTTP only: ',isHTTPonly);
-    console.log('Secure : ', __prod__);
-    console.log('Same site: ',whatSameSite);
-    console.log('Domain: ',domainName);
-    console.log('ReSave : ', willReSave);
-    console.log('Save Uninitialized : ', willSaveUninitialized);
-    console.log('Apollo Cors : ', apolloCors);
-    console.log('Apollo validate : ', process.env.APOLLO_VALIDATE);
-    console.log('  ');
-}
-
 const main = async () => {
         const orm = await MikroORM.init(mikroConfig);// I will not be automating the migrations process as I would rather manually handle migrations.
         //await orm.em.nativeDelete(User, {});  -> this will wipe all users or whatever you set.
-
         loadStatement();//made a function for easy disabling by comment.
-
         //emailTester();  // run a test email on load to check a template or settings out.
         const app = express();
         // @ts-ignore
@@ -79,12 +57,23 @@ const main = async () => {
             saveUninitialized: willSaveUninitialized,  // @ts-ignore     //creates a session by default, so to prevent that we turn it to false.
             secret: process.env.SESSION_SECRET,
             resave: willReSave,
-            })
+            }),
         );
-        // @ts-ignore 
-        const apolloServer = new ApolloServer({ schema: await buildSchema({ resolvers: [PostResolver, UserResolver], validate: process.env.APOLLO_VALIDATE }), context: ({req, res}): MyContext =>  ({ em: orm.em, req, res }), }); // apollo is running the middlewares working with graphQL this contains type definitions for it to use among other things.
+        console.log('Connected to Redis.');
+        const apolloServer = new ApolloServer({ 
+            schema: await buildSchema({ 
+                resolvers: [PostResolver, UserResolver], 
+                validate: process.env.APOLLO_VALIDATE 
+            }),
+            // @ts-ignore  
+            context: ({req, res}): MyContext =>  ({ 
+                em: orm.em, 
+                req, res 
+            }), 
+        }); // apollo is running the middlewares working with graphQL this contains type definitions for it to use among other things.
         apolloServer.applyMiddleware({ app, cors: apolloCors });
-        app.listen(process.env.EXPRESS_PORT, () => { console.log('express is running'); });
+        console.log('Apollo is loaded.');
+        app.listen(process.env.EXPRESS_PORT, () => { console.log('Express is loaded.'); });
     };
 declare module "express-session" { interface Session { userId: number; }  };
 console.log("starting up the project.");
@@ -93,4 +82,21 @@ main().catch((err) => {
 });
 
 
-
+function loadStatement(){
+    console.log('  ');
+    console.log('In Live Release(if false in production mode with debugging) : ', __prod__); // console lof if in prod or not 
+    console.log('  ');
+    console.log('Starting up with the following settings.');
+    console.log('CORS Origin: ', process.env.CORS_ORIGIN,', and ',trustProxy);
+    console.log('Max Cookie Age: ',maxCookieAge);
+    console.log('Disable Touch: ',willDisableTouch);
+    console.log('HTTP only: ',isHTTPonly);
+    console.log('Secure : ', __prod__);
+    console.log('Same site: ',whatSameSite);
+    console.log('Domain: ',domainName);
+    console.log('ReSave : ', willReSave);
+    console.log('Save Uninitialized : ', willSaveUninitialized);
+    console.log('Apollo Cors : ', apolloCors);
+    console.log('Apollo validate : ', process.env.APOLLO_VALIDATE);
+    console.log('  ');
+}
