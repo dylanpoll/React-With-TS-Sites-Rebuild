@@ -30,28 +30,32 @@ const willReSave: boolean = process.env.COOKIE_RESAVE === 'true';
 const willSaveUninitialized: boolean = process.env.COOKIE_SAVEUNINITIALIZED === 'true';
 const apolloCors: boolean = process.env.APOLLO_CORS === 'true';
 
+function loadStatement(){
+    console.log('  ');
+    console.log('In Live Release(if false in production mode with debugging) : ', __prod__); // console lof if in prod or not 
+    console.log('  ');
+    console.log('Starting up with the following settings.');
+    console.log('CORS Origin: ', process.env.CORS_ORIGIN,', and ',trustProxy);
+    console.log('Max Cookie Age: ',maxCookieAge);
+    console.log('Disable Touch: ',willDisableTouch);
+    console.log('HTTP only: ',isHTTPonly);
+    console.log('Secure : ', __prod__);
+    console.log('Same site: ',whatSameSite);
+    console.log('Domain: ',domainName);
+    console.log('ReSave : ', willReSave);
+    console.log('Save Uninitialized : ', willSaveUninitialized);
+    console.log('Apollo Cors : ', apolloCors);
+    console.log('Apollo validate : ', process.env.APOLLO_VALIDATE);
+    console.log('  ');
+}
+
 const main = async () => {
         const orm = await MikroORM.init(mikroConfig);// I will not be automating the migrations process as I would rather manually handle migrations.
         //await orm.em.nativeDelete(User, {});  -> this will wipe all users or whatever you set.
 
-        //emailTester();  // run a test email on load to check a template or settings out.
-        console.log('  ');
-        console.log('In Live Release(if false in production mode with debugging) : ', __prod__); // console lof if in prod or not 
-        console.log('  ');
-        console.log('Starting up with the following settings.');
-        console.log('CORS Origin: ', process.env.CORS_ORIGIN,', and ',trustProxy);
-        console.log('Max Cookie Age: ',maxCookieAge);
-        console.log('Disable Touch: ',willDisableTouch);
-        console.log('HTTP only: ',isHTTPonly);
-        console.log('Secure : ', __prod__);
-        console.log('Same site: ',whatSameSite);
-        console.log('Domain: ',domainName);
-        console.log('ReSave : ', willReSave);
-        console.log('Save Uninitialized : ', willSaveUninitialized);
-        console.log('Apollo Cors : ', apolloCors);
-        console.log('Apollo validate : ', process.env.APOLLO_VALIDATE);
-        console.log('  ');
+        loadStatement();//made a function for easy disabling by comment.
 
+        //emailTester();  // run a test email on load to check a template or settings out.
         const app = express();
         // @ts-ignore
         const RedisStore = connectRedis(session);
