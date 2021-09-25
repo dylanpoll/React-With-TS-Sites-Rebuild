@@ -14,7 +14,7 @@ import session from "express-session";
 import connectRedis from 'connect-redis';
 //import { emailTester } from "./nodeMailer/testEmailSender";
 
-//in order to keep repo commiting from exposing any potoentially less ideal information I localized much of the credentials and settings to the ENV file and that is in the gitIgnore. use the example if needed.
+//in order to keep repo commiting from exposing any potoentially less ideal information I localized much of the credentials and settings to the ENV file and that is in the gitIgnore. use the example if needed. also makes maintaining and re deploying nicer.
 const trustProxy: any = process.env.CORS_TRUSTPROXY;
 var importAgeValue: any = process.env.COOKIE_MAXAGE;
 const maxCookieAge:number = +importAgeValue;//if I do not do this the compilers strict typing will see turning it into a number as potentialy a violation

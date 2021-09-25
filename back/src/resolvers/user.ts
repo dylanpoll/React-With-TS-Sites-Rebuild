@@ -5,9 +5,14 @@ import { User } from "../entities/User";
 import argon2 from "argon2";
 @InputType()                    //input types we use for arguments
 class UsernamePasswordInput { 
-    @Field() username: string;
-    @Field() password: string;
+    @Field() 
+        username: string;
+    @Field() 
+        password: string;
+    @Field() 
+        email: string;
     }
+
 @ObjectType()                     //object types we return from our mutations
 class UserResponse {
     @Field(()=> [FieldError], {nullable: true}) errors?: FieldError[];    //this is used to pass errors to the FieldError object so graphQL can return that object instead of a massive report from the database
@@ -42,7 +47,10 @@ export class UserResolver{
         req.session.userId = user.id; //this stores the userId value in as a session cookie that allows them to stay logged in.
         return {user};
         }//graphQL post to use : mutation{register(options: {username:"bobsBurgers", password:"dylanstest"}){errors{field message}user{id username}}}
-    
+
+        
+
+
     @Mutation(() => UserResponse)
         async login( 
             @Arg("options") options: UsernamePasswordInput,     
