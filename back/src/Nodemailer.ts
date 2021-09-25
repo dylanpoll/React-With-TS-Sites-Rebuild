@@ -8,7 +8,7 @@ export async function sendmail() {
       secure: true, // true for 465, false for other ports
       auth: {
         user: 'dylanmanpoll@gmail.com', // generated ethereal user
-        pass: 'onmslptooejikglt', // generated ethereal password
+        pass: '', // generated ethereal password
       },
     });
     // send mail with defined transport object
