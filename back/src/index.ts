@@ -35,7 +35,7 @@ const main = async () => {
         //await orm.em.nativeDelete(User, {});  -> this will wipe all users or whatever you set.
 
         //emailTester();  // run a test email on load to check a template or settings out.
-        console.log(__prod__); // console lof if in prod or not 
+        console.log('In Live Release(if false in production mode with debugging) : ' + __prod__); // console lof if in prod or not 
         //console.log(trustProxy,importAgeValue,maxCookieAge,willDisableTouch,isHTTPonly,whatSameSite,domainName);
         const app = express();
         // @ts-ignore
