@@ -1,0 +1,310 @@
+CURRENT TIME STAMP: 2:21:46
+
+about chakra-ui 
+  kind of like bootstrap, its just a starter pack for react with a few good components that make front end a bit
+faster to deploy.
+
+Notes : there are issues with next and chackra compatability with image tags https://github.com/chakra-ui/chakra-ui/discussions/2475
+
+
+ISSUES WITH EMOTION/CORE -> EMOTION/REACT : boils down to a dependency declaration issue, many have this issue 
+https://github.com/emotion-js/emotion/issues/1606 -> old thread where the issue keeps being re stated, on the issues page of the repo many new listings still show it.
+article talking about options other than emotion/core -> https://colinhacks.com/essays/emotion-core-vs-vanilla-emotion
+will use it to complete tutorial but after that will probably change to something else. 
+uninstalling installed packages and using :   yarn add @emotion/core@10.1.1
+
+--React 
+for any TS files that have react code we label them .tsx 
+
+--nextJS
+IN NEXTJS all file names within the pages folder will be a route we can use based on the file name.
+a video covering basic information about the technology : https://www.youtube.com/watch?v=Sklc_fQBmcs
+essentially, it provides easy to use tools for a lot of things and also releases the sites as chunks to increase load times
+some tips for next https://www.youtube.com/watch?v=R59e1Vl5lO8
+examples and general lecture style explonation for next data fetching and serving props features to improve loading times and re rendinger of data
+
+--formik
+formik is kind of broken atm with the current release and when the tutorial was made it seems.
+
+--urql
+https://formidable.com/open-source/urql/docs/
+this is being used to hook our graphQL instance to our website.
+
+also using next-urql to manage the ssr so we can have ssr functionality better work with cache updates and mutation usages https://formidable.com/open-source/urql/docs/advanced/server-side-rendering/#nextjs
+
+--graphQL code generator
+yarn add -D @graphql-codegen/cli
+this is used to make react hooks easily.
+
+
+General JS/TS/REACT
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+hooks -> const [,] = example(); are using array deconstruction  
+position one or two may or may not be filled in however that is only stating that the object at the array position left blank is unused and will likely have a value pulled from elsewhere.
+
+
+
+
+
+
+
+
+  backups
+
+  {
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve"
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
+
+
+
+/* 
+//I compacted all the imported .tsx files from the base into this one so I could backup the basic template from the standard chackra create reactapp startup
+//everything below this is used for styling examples at current.
+import {  Link as ChakraLink,  Text,  Code,  List,  ListIcon,  ListItem,  Flex,  FlexProps, Heading,  useColorMode,   Switch,  Button,  Stack,   StackProps} from '@chakra-ui/react';
+import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons';
+import { Navigation } from '../components/navigation';
+
+const Container = (props: FlexProps) => {
+  const { colorMode } = useColorMode()
+  const bgColor = { light: 'gray.50', dark: 'gray.900' }
+  const color = { light: 'black', dark: 'white' }
+  return (
+    <Flex
+      direction="column"
+      alignItems="center"
+      justifyContent="flex-start"
+      bg={bgColor[colorMode]}
+      color={color[colorMode]}
+      {...props}
+    />
+  )
+}
+const Main = (props: StackProps) => (
+  <Stack
+    spacing="1.5rem"
+    width="100%"
+    maxWidth="48rem"
+    //alignItems="start"
+    //mt="auto"
+    pt="8rem"
+    px="1rem"
+    {...props}
+  />
+)
+const CTA = () => (
+  <Container
+    flexDirection="row"
+    position="fixed"
+    bottom="0"
+    width="100%"
+    maxWidth="48rem"
+    py={3}
+  >
+    <ChakraLink isExternal href="https://chakra-ui.com" flexGrow={1} mx={2}>
+      <Button width="100%" variant="outline" colorScheme="green">
+        chakra-ui
+      </Button>
+    </ChakraLink>
+    <ChakraLink
+      isExternal
+      href="https://github.com/vercel/next.js/blob/canary/examples/with-chakra-ui-typescript"
+      flexGrow={3}
+      mx={2}
+    >
+      <Button width="100%" variant="solid" colorScheme="green">
+        View Repo
+      </Button>
+    </ChakraLink>
+  </Container>
+)
+const DarkModeSwitch = () => {
+  const { colorMode, toggleColorMode } = useColorMode()
+  const isDark = colorMode === 'dark'
+  return (
+    <Switch
+      position="fixed"
+      top="1rem"
+      right="1rem"
+      color="green"
+      isChecked={isDark}
+      onChange={toggleColorMode}
+    />
+  )
+}
+const Footer = (props: FlexProps) => (
+  <Flex as="footer" py="8rem" {...props} />
+)
+const Hero = ({ title }: { title: string }) => (
+  <Flex
+    justifyContent="center"
+    alignItems="top"
+    height="100vh"
+    bgGradient="linear(to-l, #7928CA, #FF0080)"
+    bgClip="text"
+  >
+    <Heading fontSize="6vw">{title}</Heading>
+  </Flex>
+)
+Hero.defaultProps = {}  // I left this blank to make designing stuff easier, but the title can go here
+
+const Index = () => (
+  <Container height="100vh">
+    <Hero title='Setting Up'/>{/* main text for title but hero itself contains all page items as props }
+    <Main>
+    <Navigation/>
+      <Text>
+          Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{' '}
+          <Code>typescript</Code>.
+      </Text>
+      <List spacing={3} my={0}>
+        <ListItem>
+          <ListIcon as={CheckCircleIcon} color="green.500" />
+          <ChakraLink isExternal href="https://chakra-ui.com" flexGrow={1} mr={2}>
+            Chakra UI <LinkIcon />
+          </ChakraLink>
+        </ListItem>
+      </List>
+    </Main>{/* main div wrapper }
+    <DarkModeSwitch />
+    <Footer>
+      <Text>Next ❤️ Chakra</Text>
+    </Footer>
+    <CTA />{/* fancy buttons at bottom of page for "chackra ui and view repo" }
+  </Container>
+)
+
+export default Index
+*/
+
+
+
+export const Home = () => (
+    <div>
+           <h1>About Me :</h1>
+                      My name is Dylan Poll, I am a software developer who is always looking to learn.
+                    {'\n'}Some of my current skills include :
+                   <ul>
+                        <span><li> Windows and Linux Systems </li></span>
+                        <span><li> Board Work, Break Fix and general IT </li></span>
+                        <span><li> Embedded Systems and general IOT</li></span>
+                        <span><li> Cloud Networking</li></span>
+                        <span><li> Server Deployment</li></span>
+                        <span><li> Software development</li></span>
+                        <span><li> Full Stack work</li></span>
+                        <span><li> CAD model development</li></span>
+                        <span><li> Web Development</li></span>  
+                        <span><li> C++ Programming Language </li></span>  
+                        <span><li> C Programming Language </li></span> 
+                        <span><li> C# Programming Language </li></span> 
+                        <span><li> ava Programming Language   </li></span> 
+                        <span><li> Js+Node Programming Language </li></span> 
+                        <span><li> Python Programming Language   </li></span>   
+                    </ul>                      
+            <h1>Contact Me :{'\n'}</h1>
+                  <li><span> E-Mail : <a href="DylanManPoll@gmail.com">DylanManPoll@gmail.com</a>  </span></li>
+                    <li><span> GitHub : <a href="https://github.com/dylanpoll">github.com/dylanpoll </a> </span></li>
+                    <li><span> LinkdIn : <a href="https://www.linkedin.com/in/dylanpoll">linkedin.com/in/dylanpoll</a> </span></li>
+                    <li><span> Orlando Code Cave Discord Server : <a href="https://discord.gg/kRCTTRVt">https://discord.gg/kRCTTRVt</a> </span></li>
+                    <li><span> Discord ID : DevDylan#9707</span></li>
+    </div>
+);
+
+
+
+export const Projects = () => (    
+    <div>
+        <h1>Projects I am working on{'\n'}</h1>
+        <h1><a href="https://CodeKarma.club">CodeKarma.club</a> {'\n'}</h1>
+
+                this is a project I have been working on for clubs and organizations. It has:
+            <ul>
+            <li><span> Tracking attendence   </span></li>
+            <li><span> An easy deploment system  </span></li>
+            <li><span> A Discord Bot   </span></li>
+            <li><span> A phone App   </span></li>
+            <li><span> Roles  </span></li>
+            <li><span> Scanning in members </span></li>
+            <li><span> GitHub Repo : <a href="https://github.com/dylanpoll/KarmaProject">/KarmaProject</a> </span></li>
+            <li><span> And more </span></li>
+            </ul>
+ <h1><a href="https://creepcript.rip/">  CreepCript.RIP  </a>{'\n'}</h1>
+        I have a friend who is and has been stalked online for a long time. 
+                    This project is dedicated to that friend and meant to help people who are being harrased in that same way.{'\n'}
+                {'\n'}The project can accomplish :
+                    <ul>
+                        <li><span>Injection of metadata(exif data codes meant to be used for tracking suspect leads)</span></li>
+                        <li><span>Image Stegnography as a means to inject a tracking code to bypass exif data scrubbers</span></li>
+                        <li><span>An easy deploment system ( so you can host a site that will post images that will automatically display tagged images for the user connected.)</span></li>
+                        <li><span>A phone App</span></li>
+                        <li><span>Archival for people to codes used only accessable after authenticating using Auth0.</span></li>
+                        <li><span>And more.(site is under development, but the backend is almost done.)</span></li>
+                        <li><span>GitHub Repo : <a href="https://github.com/dylanpoll/CreepCript.RIP">/CreepCript.RIP</a></span></li>
+                    </ul>
+     <a href="https://github.com/dylanpoll/DevDylan.me"> DevDylan.me</a>{'\n'}
+       
+                <span><li>The github repo for this site!{'\n'}{'\n'}</li></span>
+                
+                <a href="https://github.com/dylanpoll/EmailLightBar"> Email Light Bar   </a>{'\n'}
+                this currently is being built, the only remaining issue is with the email scanning system. it is over scanning and erasing old results.
+                
+                <li><span>I plan to work this from a ESP32 down to a ESP01 in the future.</span></li>
+                <li><span>Working on listening for windows push notifications and using those as ques for light animations</span></li>
+                <li><span>last future expansion will be to default back to the old LED scheme state after ending that animation, this will be done by recording the state and pushing the animation as a temporary state and setting it back to the original upon completion.</span></li>
+                {'\n'}
+                <a href="https://github.com/dylanpoll/DiscordBots">  DiscordBots  </a>{'\n'}
+                
+                <span><li>the esp bot is a simple example/bare outline for using a esp board with a arduino(or without) as a type of restful api that uses URL encoding to initiate code. the discord bot just sends the URL encoded commands from chat. this same system can be used with other chat bots unrelated to discord, this is just a implimentation of it with discord.</li></span>
+                <span><li>the Karma bot is just a part of my larger Karma project, a lot of its features are tied to the database it works with and the express rest API it is using. see the karma project repo or my rest API repo for a better explonation.</li></span>
+                {'\n'}
+                <a href="https://github.com/valenciaEmbedded/WhoIsHome">  Who Is Home </a>{'\n'}
+                
+                the Who Is home project does the following:
+                
+                <span><li>runs a python script that checks for the mac addresses of devices connected to your network.</li></span>
+                <span><li>It uses Nmap for this. </li></span>
+                <span><li>It runs those addresses against a list of addresses and if the address listed is present it sends a char to an arduino by using serial communications.</li></span>
+                <span><li>the arduino controls a LED strip and when it recieves a char it has an associated color for that device and it lights the LEDs for that person based on them being present.</li></span>
+                {'\n'}
+                <a href="https://github.com/dylanpoll/Arduino"> Arduino and ESP </a>{'\n'}
+                
+                <span><li>This is my github repo for my Arduino and ESP code.</li></span>
+                {'\n'}
+                <a href="https://github.com/dylanpoll/Java"> Java  </a>{'\n'}
+                
+                <span><li>My general Java code</li></span>
+                {'\n'}
+                <a href="https://github.com/dylanpoll/C">  C code  </a>{'\n'}
+                
+                   <span><li>Some of my C programms on github.</li></span>
+                   {'\n'}
+                   <a href="https://github.com/dylanpoll/Rest">  Express  </a>{'\n'}
+                   
+                    <span><li>My express base build repo on github</li></span>
+                    {'\n'}
+                    <a href="https://www.linkedin.com/groups/9011341/"> OrlandoCodeCave  </a>{'\n'}
+                    
+                <span><li>This is a organization I am trying to get started for working on open source projects locally! This takes you to the Linkdin page!</li></span>
+                <span><li>GitHub page : <a href="https://github.com/OrlandoCodeCave">/OrlandoCodeCave</a></li></span>
+                {'\n'}
+                <a href="https://valenciatechclub.com"> My college tech club </a>{'\n'}
+                
+                <span><li>I was the valencia tech club president and set up the site for the club, and did all the photagraphy on it! currently still needs a lot of work but it is being worked on by people on off time!</li></span>
+                    {'\n'}
+    </div>
+);
