@@ -1,1 +1,0 @@
-export const __prod__ = process.env.Node_ENV === 'production'   // this leaves debugging on only durring production
