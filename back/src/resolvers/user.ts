@@ -1,10 +1,8 @@
+import "dotenv-safe/config";
 import { MyContext } from "src/types";
 import { Resolver, Ctx, Arg, Mutation, InputType, Field, ObjectType, Query } from "type-graphql";
 import { User } from "../entities/User";
 import argon2 from "argon2";
-import { COOKIE_NAME } from "../constants";
-
-
 @InputType()                    //input types we use for arguments
 class UsernamePasswordInput { 
     @Field() username: string;
@@ -62,9 +60,10 @@ export class UserResolver{
     @Mutation(()=> Boolean)
         logout(
             @Ctx() { req, res }: MyContext ){  
+                let cookieName: any | undefined = process.env.COOKIE_NAME;  //can't change the expected type from string | undefined to string, to this is where I am.
                 return new Promise( (terminate) => 
                 req.session.destroy( err => { // this line kills the established redis session 
-                    res.clearCookie(COOKIE_NAME); //this destroys the cookie stored client side.
+                    res.clearCookie(cookieName); //this destroys the cookie stored client side.
                     if(err){
                         console.log(err);
                         terminate(false);

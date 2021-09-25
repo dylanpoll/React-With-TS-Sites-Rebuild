@@ -2,7 +2,7 @@ import "reflect-metadata";
 import "dotenv-safe/config";
 import cors from "cors";
 import { MikroORM } from "@mikro-orm/core";
-import { COOKIE_NAME, __prod__ } from "./constants";
+import {__prod__ } from "./constants";
 import mikroConfig from "./mikro-orm.config";
 import  express  from "express";
 import { ApolloServer } from "apollo-server-express";
@@ -29,7 +29,7 @@ const main = async () => {
         app.use( cors({ origin: process.env.CORS_ORIGIN, credentials: true, }) );
         app.use(// @ts-ignore
         session({
-            name: COOKIE_NAME,// @ts-ignore
+            name: process.env.COOKIE_NAME,// @ts-ignore
             store: new RedisStore({ // @ts-ignore
                 client: redis,          //this is using ioredis because this is TS and we don't want to use the standard redis module
                 disableTouch: true ,    // touching is used to keep a connected user auth token active, disabling this means they can sit idle and not have auth expire. less secure
