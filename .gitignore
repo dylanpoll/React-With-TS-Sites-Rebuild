@@ -1,5 +1,8 @@
 react-ts-base/README.md
 exampleRedisConfigurationFile.txt
+/vscode/*
+vscode/*
+.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
