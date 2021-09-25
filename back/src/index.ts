@@ -29,7 +29,6 @@ const apolloCors: boolean = process.env.APOLLO_CORS === 'true';
 // this tells the system to only run debugging while in production mode, this works more or less by going in these steps as it is evaluating what the variable will equate out too before assigning it. 1) process.env.Node_ENV === process.env.NODE_ENVIRONMENT; --> true or false | 2) assign result to __prod__ | 3) assign __prod__ as export
 export const __prod__: boolean = process.env.Node_ENV === 'production';  //if in production this will return false marking in the cookie -secure :false
 
-
 const main = async () => {
         const orm = await MikroORM.init(mikroConfig);// I will not be automating the migrations process as I would rather manually handle migrations.
         //await orm.em.nativeDelete(User, {});  -> this will wipe all users or whatever you set.
@@ -81,7 +80,6 @@ console.log("starting up the project.");
 main().catch((err) => {
     console.error(err);
 });
-
 
 function loadStatement(){
     console.log('  ');
