@@ -63,7 +63,7 @@ const main = async () => {
             })
         );
         // @ts-ignore 
-        const apolloServer = new ApolloServer({ schema: await buildSchema({ resolvers: [PostResolver, UserResolver], validate: false }), context: ({req, res}): MyContext =>  ({ em: orm.em, req, res }), }); // apollo is running the middlewares working with graphQL this contains type definitions for it to use among other things.
+        const apolloServer = new ApolloServer({ schema: await buildSchema({ resolvers: [PostResolver, UserResolver], validate: process.env.APOLLO_VALIDATE }), context: ({req, res}): MyContext =>  ({ em: orm.em, req, res }), }); // apollo is running the middlewares working with graphQL this contains type definitions for it to use among other things.
         apolloServer.applyMiddleware({ app, cors: apolloCors });
         app.listen(process.env.EXPRESS_PORT, () => { console.log('express is running'); });
     };
