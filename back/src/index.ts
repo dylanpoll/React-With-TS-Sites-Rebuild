@@ -20,7 +20,7 @@ export const __prod__: boolean = process.env.Node_ENV === 'production';  //if in
 
 const trustProxy: any = process.env.CORS_TRUSTPROXY;
 var importAgeValue: any = process.env.COOKIE_MAXAGE;
-const maxCookieAge:number = +importAgeValue;
+const maxCookieAge:number = +importAgeValue;//if I do not do this the compilers strict typing will see turning it into a number as potentialy a violation
 const willDisableTouch: boolean = process.env.COOKIE_DISABLETOUCH === 'true';
 const isHTTPonly: boolean = process.env.COOKIE_HTTPONLY === 'true';
 const whatSameSite: any = process.env.COOKIE_SAMESITE;
@@ -59,7 +59,7 @@ const main = async () => {
             resave: willReSave,
             }),
         );
-        console.log('Connected to Redis.');
+        console.log('Redis connection estalished.');
         const apolloServer = new ApolloServer({ 
             schema: await buildSchema({ 
                 resolvers: [PostResolver, UserResolver], 
