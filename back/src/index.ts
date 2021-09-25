@@ -14,10 +14,7 @@ import session from "express-session";
 import connectRedis from 'connect-redis';
 //import { emailTester } from "./nodeMailer/testEmailSender";
 
-/* this tells the system to only run debugging while in production mode, this works more or less by going in these steps as it is evaluating what the variable will equate out too before assigning it.
-1) process.env.Node_ENV === process.env.NODE_ENVIRONMENT; --> true or false | 2) assign result to __prod__ | 3) assign __prod__ as export*/
-export const __prod__: boolean = process.env.Node_ENV === 'production';  //if in production this will return false marking in the cookie -secure :false
-
+//in order to keep repo commiting from exposing any potoentially less ideal information I localized much of the credentials and settings to the ENV file and that is in the gitIgnore. use the example if needed.
 const trustProxy: any = process.env.CORS_TRUSTPROXY;
 var importAgeValue: any = process.env.COOKIE_MAXAGE;
 const maxCookieAge:number = +importAgeValue;//if I do not do this the compilers strict typing will see turning it into a number as potentialy a violation
@@ -29,11 +26,15 @@ const willReSave: boolean = process.env.COOKIE_RESAVE === 'true';
 const willSaveUninitialized: boolean = process.env.COOKIE_SAVEUNINITIALIZED === 'true';
 const apolloCors: boolean = process.env.APOLLO_CORS === 'true';
 
+// this tells the system to only run debugging while in production mode, this works more or less by going in these steps as it is evaluating what the variable will equate out too before assigning it. 1) process.env.Node_ENV === process.env.NODE_ENVIRONMENT; --> true or false | 2) assign result to __prod__ | 3) assign __prod__ as export
+export const __prod__: boolean = process.env.Node_ENV === 'production';  //if in production this will return false marking in the cookie -secure :false
+
+
 const main = async () => {
         const orm = await MikroORM.init(mikroConfig);// I will not be automating the migrations process as I would rather manually handle migrations.
         //await orm.em.nativeDelete(User, {});  -> this will wipe all users or whatever you set.
-        loadStatement();//made a function for easy disabling by comment.
-        //emailTester();  // run a test email on load to check a template or settings out.
+        loadStatement();    //made a function for easy disabling by comment.
+        //emailTester();    // run a test email on load to check a template or settings out.
         const app = express();
         // @ts-ignore
         const RedisStore = connectRedis(session);
@@ -44,15 +45,15 @@ const main = async () => {
         session({
             name: process.env.COOKIE_NAME,// @ts-ignore
             store: new RedisStore({ // @ts-ignore
-                client: redis,          //this is using ioredis because this is TS and we don't want to use the standard redis module
-                disableTouch: willDisableTouch ,    // touching is used to keep a connected user auth token active, disabling this means they can sit idle and not have auth expire. less secure
+                client: redis,                              //this is using ioredis because this is TS and we don't want to use the standard redis module
+                disableTouch: willDisableTouch ,            // touching is used to keep a connected user auth token active, disabling this means they can sit idle and not have auth expire. less secure
                 }),
             cookie: {
-                maxAge: maxCookieAge , //this sets the age for the cookie to 10 years
+                maxAge: maxCookieAge ,                      //this sets the age for the cookie to 10 years
                 httpOnly: isHTTPonly,
-                sameSite: whatSameSite,  // may need to change this... remember updates and issues with other projects and security settings 
-                secure: __prod__, // cookie only works in http
-                domain: __prod__ ? domainName : undefined, // the ? in TS It is to mark the parameter as optional.https://www.typescriptlang.org/docs/handbook/2/functions.html#optional-parameters this works with cors and more or less outlines where the cookie is valid and to be used
+                sameSite: whatSameSite,                     // may need to change this... remember updates and issues with other projects and security settings 
+                secure: __prod__,                           // cookie only works in http
+                domain: __prod__ ? domainName : undefined,  // the ? in TS It is to mark the parameter as optional.https://www.typescriptlang.org/docs/handbook/2/functions.html#optional-parameters this works with cors and more or less outlines where the cookie is valid and to be used
                 },
             saveUninitialized: willSaveUninitialized,  // @ts-ignore     //creates a session by default, so to prevent that we turn it to false.
             secret: process.env.SESSION_SECRET,
@@ -70,7 +71,7 @@ const main = async () => {
                 em: orm.em, 
                 req, res 
             }), 
-        }); // apollo is running the middlewares working with graphQL this contains type definitions for it to use among other things.
+        });// apollo is running the middlewares working with graphQL this contains type definitions for it to use among other things.
         apolloServer.applyMiddleware({ app, cors: apolloCors });
         console.log('Apollo is loaded.');
         app.listen(process.env.EXPRESS_PORT, () => { console.log('Express is loaded.'); });
