@@ -13,10 +13,14 @@ import { MyContext } from './types';
 import Redis from "ioredis";//redis idle client timeout is set to 300 seconds at current. I am currently using my VPS hosted redis for development https://redis.io/commands/auth for more info on the params I am using
 import session from "express-session";
 import connectRedis from 'connect-redis';
+import { emailTester } from "./nodeMailer/testEmailSender";
 
 const main = async () => {
         const orm = await MikroORM.init(mikroConfig);// I will not be automating the migrations process as I would rather manually handle migrations.
         //await orm.em.nativeDelete(User, {});  -> this will wipe all users or whatever you set.
+
+        //emailTester();  // run a test email on load to check a template or settings out.
+
         const app = express();
         // @ts-ignore
         const RedisStore = connectRedis(session);
