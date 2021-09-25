@@ -13,7 +13,7 @@ import { MyContext } from './types';
 import Redis from "ioredis";//redis idle client timeout is set to 300 seconds at current. I am currently using my VPS hosted redis for development https://redis.io/commands/auth for more info on the params I am using
 import session from "express-session";
 import connectRedis from 'connect-redis';
-import { emailTester } from "./nodeMailer/testEmailSender";
+//import { emailTester } from "./nodeMailer/testEmailSender";
 
 const main = async () => {
         const orm = await MikroORM.init(mikroConfig);// I will not be automating the migrations process as I would rather manually handle migrations.
@@ -56,20 +56,6 @@ console.log("starting up the project.");
 main().catch((err) => {
     console.error(err);
 });
-/* 
-I am no longer following any standard tutorial on this project as initially the refference material is too out dated.
-TODO: 
-I need to make the user login generate errors that do not show if its the username or password that are incorrect
-that can be used to test out what of the two are wrong, should only say " Username or password incorrect"
-
-any email context text fields should use names not including email as bots can scan sites and target that field.
-often refered to as honeypoting the email field
-
-attempted logins lead to cooldown times OR max amount of attempts for a set time -> send email to validate 
-Not sleep rather, remember the timestamp of the most recent attempt and reject attempts sooner than that plus a cool down period.
-
-
-*/
 
 
 
