@@ -1,0 +1,14 @@
+mutation createPost($catagory: String!, $body: String!, $title: String!){
+  createPost(
+    title: $title 
+    body: $body
+  	catagory: $catagory
+  ) { 
+  	id 
+    createdAt 
+    updatedAt 
+    title 
+    body
+    catagory
+  }
+}

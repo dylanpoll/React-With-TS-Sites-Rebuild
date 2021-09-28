@@ -6,6 +6,8 @@ import { InputField } from "../components/inputField";
 import { useRegisterMutation } from "../generated/graphql";
 import { toErrorMap } from "../utilities/errormap";
 import { useRouter } from "next/router"
+import { withUrqlClient } from "next-urql";
+import { createUrqlClient } from "../utilities/createUrqlClient";
 interface registerProps {}
 
 // eslint-disable-next-line no-empty-pattern
@@ -16,10 +18,10 @@ const [, register] = useRegisterMutation();
     return (
     <Wrapper>      
         <Formik 
-            initialValues={{ username: "", password: "" }} 
+            initialValues={{ username: "", password: "", email:"" }} 
                 onSubmit={async ( values, {setErrors} ) => {
-                    console.log(values);
-                    const response = await register(values);
+                    //console.log(values);
+                    const response = await register({options: values});
                     if (response.data?.register.errors){ //if there are errors, no argument present makes this a true false for if the data is present or null
                         setErrors(toErrorMap(response.data.register.errors));
                     } else if (response.data?.register.user){ // if user data present is true
@@ -34,11 +36,14 @@ const [, register] = useRegisterMutation();
             placeholder="Username"
             label="Username"
           />
-        {/*  
+         
          <Box mt={2}>
-            <InputField name="email" placeholder="email" label="Email" />
+            <InputField 
+            name="email" 
+            placeholder="email" 
+            label="Email" />
           </Box>
-        */}
+        
           <Box mt={2}>
             <InputField
               name="password"
@@ -56,4 +61,4 @@ const [, register] = useRegisterMutation();
 );
 };
 
-export default Register;
+export default withUrqlClient(createUrqlClient)(Register);

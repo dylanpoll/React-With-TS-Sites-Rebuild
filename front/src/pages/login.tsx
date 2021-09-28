@@ -17,9 +17,9 @@ const Login: React.FC<{}> = ({}) => {
       return (
         <Wrapper>      
             <Formik 
-                initialValues={{ username: "", password: "" }} 
+                initialValues={{ loginType: "", password: "" }} 
                     onSubmit={ async ( values, { setErrors } ) => {
-                        const response = await login({ options: values });
+                        const response = await login(values);
                         if (response.data?.login.errors){ //if there are errors, no argument present makes this a true false for if the data is present or null
                             setErrors(toErrorMap(response.data.login.errors));
                         } else if (response.data?.login.user){ // if user data present is true
@@ -31,15 +31,11 @@ const Login: React.FC<{}> = ({}) => {
             {({ isSubmitting }) => (
               <Form>
               <InputField
-                name="username"
-                placeholder="Username"
-                label="Username"
+                name="loginType"
+                placeholder="Username or email"
+                label="Username or email"
               />
-            {/*  
-            <Box mt={2}>
-                <InputField name="email" placeholder="email" label="Email" />
-              </Box>
-            */}
+
               <Box mt={2}>
                 <InputField
                   name="password"

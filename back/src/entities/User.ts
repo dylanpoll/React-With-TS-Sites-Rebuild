@@ -20,13 +20,13 @@ export class User {
     @Property({ type: "text", unique: true }) 
       username!: string;    // we use the unique property because there should be 1 person with a username so no repeating usernames 
   
+  @Field(() => String)  
+      @Property({ type: "text", unique: true  })  
+        email!: string;
+
   @Field(() => String)    
     @Property({ type: "text"}) 
       password!: string;                   //passwords will be hashed and no field added as should not be seen by call
-
-  @Field(() => String)  
-    @Property({ type: "text" })  
-      email!: string;
 
 //  @Field(() => String)  
 //    @Property({ type: "text" })  

@@ -1,5 +1,5 @@
 import { Post } from "../entities/Posts";
-import { MyContext } from "src/types";
+import { MyContext } from "../types";
 import { Resolver, Query, Ctx, Arg, Int, Mutation } from "type-graphql";
 
 @Resolver()
@@ -19,9 +19,15 @@ export class PostResolver {
     @Mutation(() => Post)  // Mutations are for updating/inserting/deleting db entrees while querry is for getting data
     async createPost(                       // this is made async due to the await used below
         @Arg('title') title: string,        //graphQL can infer types as well, above I manually set the types, appears to not always be needed but sometimes does need to be done.
-        //@Arg('body') body: string,   
+        @Arg('body') body: string, 
+        @Arg('catagory') catagory: string,   
         @Ctx() { em }: MyContext): Promise<Post> {
-            const post = em.create(Post, {title});      // making a Post object named post to then post to the DB
+            const post = em.create(Post, 
+                {
+                    title,
+                    body,
+                    catagory
+                });      // making a Post object named post to then post to the DB
             await em.persistAndFlush(post);             // passing it to graphQL to post the object to the DB
             return post;
         }//graphQL post to use : mutation{ createPost(title: "test post" ) { id createdAt updatedAt title }}

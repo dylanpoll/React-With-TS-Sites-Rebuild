@@ -2,7 +2,7 @@ import { Box, Flex, Link, Button } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
 import React from "react";
-import { useRouter } from "next/router";
+//import { useRouter } from "next/router";
 
 // eslint-disable-next-line no-empty-pattern
 export const Navigation: React.FC<{}> = ({}) => {
@@ -20,17 +20,32 @@ export const Navigation: React.FC<{}> = ({}) => {
     } else if(!data?.me){ //no user data means not logged in so offer options
         body = (
             <>
+            <NextLink href="/">
+                <Link> Home </Link>
+            </NextLink>
+            <NextLink href="/projects">
+                <Link> Projects </Link>
+            </NextLink>
             <NextLink href="/login">
                 <Link> Login </Link>
             </NextLink>
             <NextLink href="/register">
                 <Link> Register </Link>
             </NextLink>
+            <NextLink href="/post">
+                <Link> Post </Link>
+            </NextLink>
             </>
         );
     }else{  //as there is user data wont offer signin or registering
         body = (
-            <Flex align="center">
+            <>
+            <NextLink href="/">
+                <Link> Home </Link>
+            </NextLink>
+            <NextLink href="/projects">
+                <Link> Projects </Link>
+            </NextLink>
               <Box> Hello {data.me.username} </Box>
               <Button
                 onClick={ async () => { // I have gone with and without async, I see no change of the issue however there is a returned statement so I am leaving it async
@@ -41,7 +56,10 @@ export const Navigation: React.FC<{}> = ({}) => {
               >
                 logout
               </Button>
-            </Flex>
+              <NextLink href="/post">
+                <Link> Post </Link>
+            </NextLink>                         
+            </>
           );
     }
     return(

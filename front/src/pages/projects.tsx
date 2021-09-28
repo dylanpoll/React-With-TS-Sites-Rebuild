@@ -6,7 +6,9 @@ import { Navigation } from '../components/navigation';
 import { usePostsQuery } from '../generated/graphql';
 import { createUrqlClient } from '../utilities/createUrqlClient';
 
-const Index = () => {
+
+
+const Projects = () => {
   const [{data}] = usePostsQuery();
 
   return (
@@ -24,7 +26,6 @@ const Index = () => {
         <div> Loading..... </div>
       ) : data.posts.map( (p) =>
           <div key={p.id}>
-            {p.catagory}
             <br/>
             <Box
             bg="grey"
@@ -55,4 +56,4 @@ const Index = () => {
   </div>
   )
 }
-export default withUrqlClient(createUrqlClient)(Index); // be default this is a standard urql without ssr on 
+export default withUrqlClient(createUrqlClient)(Projects); // be default this is a standard urql without ssr on 

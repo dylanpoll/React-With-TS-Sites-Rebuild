@@ -7,10 +7,9 @@ const PORT: number | undefined = +importPort;
 var importSecure: any = process.env.NODEMAILER_SECURE;
 const SECURE: boolean | undefined = importSecure;
 
-// async..await is not allowed in global scope, must use a wrapper
-export async function sendmail(whoWillRecieve:string|undefined,subTitleLine:string|undefined,mailBody:string|undefined) {
-    // create reusable transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport({
+// async..await is not allowed in global scope, must use a wrapper edit this for console logging errors.
+export function sendmail(whoWillRecieve:string|undefined,subTitleLine:string|undefined,mailBody:string|undefined) {
+    let transporter = nodemailer.createTransport({ // create reusable transporter object using the default SMTP transport
       host: HOST,
       port: PORT,
       secure: SECURE, 
@@ -20,7 +19,8 @@ export async function sendmail(whoWillRecieve:string|undefined,subTitleLine:stri
       },
     });
     //let info =    //uncomment this along with console.log to check if a email is sent with a terminal statement
-    await transporter.sendMail({      // send mail with defined transport object
+    //IF YOU WANT TO ENABLE CONSOLE LOGGING THIS, MAKE THE NEXT LINE AWAIT AND THE FUNCTION ITSELF ASYNC.
+    transporter.sendMail({      // send mail with defined transport object
       from: '"'+ process.env.NODEMAILER_SENDERNAME +'" <' + process.env.NODEMAILER_EMAIL +'>', // This if not correct depending on the service may auto correct
       to: whoWillRecieve, 
       subject: subTitleLine, 

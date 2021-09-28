@@ -12,7 +12,9 @@ import { MyContext } from './types';
 import Redis from "ioredis";//redis idle client timeout is set to 300 seconds at current. I am currently using my VPS hosted redis for development https://redis.io/commands/auth for more info on the params I am using
 import session from "express-session";
 import connectRedis from 'connect-redis';
-//import { emailTester } from "./nodeMailer/testEmailSender";
+import { Post } from "./entities/Posts";
+
+// I will need to run a bloat check at the end of development and optimize accordingly https://create-react-app.dev/docs/analyzing-the-bundle-size/
 
 //in order to keep repo commiting from exposing any potoentially less ideal information I localized much of the credentials and settings to the ENV file and that is in the gitIgnore. use the example if needed. also makes maintaining and re deploying nicer.
 const trustProxy: any = process.env.CORS_TRUSTPROXY;
@@ -25,13 +27,14 @@ const domainName: any = process.env.COOKIE_DOMAIN ;
 const willReSave: boolean = process.env.COOKIE_RESAVE === 'true';
 const willSaveUninitialized: boolean = process.env.COOKIE_SAVEUNINITIALIZED === 'true';
 const apolloCors: boolean = process.env.APOLLO_CORS === 'true';
+const apolloValid: boolean = process.env.APOLLO_VALIDATE ==='true';
 
 // this tells the system to only run debugging while in production mode, this works more or less by going in these steps as it is evaluating what the variable will equate out too before assigning it. 1) process.env.Node_ENV === process.env.NODE_ENVIRONMENT; --> true or false | 2) assign result to __prod__ | 3) assign __prod__ as export
 export const __prod__: boolean = process.env.Node_ENV === 'production';  //if in production this will return false marking in the cookie -secure :false
 
 const main = async () => {
         const orm = await MikroORM.init(mikroConfig);// I will not be automating the migrations process as I would rather manually handle migrations.
-        //await orm.em.nativeDelete(User, {});  -> this will wipe all users or whatever you set.
+        await orm.em.nativeDelete(Post, {});  // this will wipe all users or whatever you set.
         loadStatement();    //made a function for easy disabling by comment.
         //emailTester();    // run a test email on load to check a template or settings out.
         const app = express();
@@ -61,10 +64,7 @@ const main = async () => {
         );
         console.log('Redis connection estalished.');
         const apolloServer = new ApolloServer({ 
-            schema: await buildSchema({ 
-                resolvers: [PostResolver, UserResolver], 
-                validate: process.env.APOLLO_VALIDATE 
-            }),
+            schema: await buildSchema({resolvers: [PostResolver, UserResolver], validate: apolloValid}),
             // @ts-ignore  
             context: ({req, res}): MyContext =>  ({ 
                 em: orm.em, 
@@ -73,7 +73,7 @@ const main = async () => {
         });// apollo is running the middlewares working with graphQL this contains type definitions for it to use among other things.
         apolloServer.applyMiddleware({ app, cors: apolloCors });
         console.log('Apollo is loaded.');
-        app.listen(process.env.EXPRESS_PORT, () => { console.log('Express is loaded.'); });
+        app.listen(process.env.EXPRESS_PORT, () => { console.log('Express is loaded.'); console.log('  '); });
     };
 declare module "express-session" { interface Session { userId: number; }  };
 console.log("starting up the project.");
@@ -97,5 +97,8 @@ function loadStatement(){
     console.log('Save Uninitialized : ', willSaveUninitialized);
     console.log('Apollo Cors : ', apolloCors);
     console.log('Apollo validate : ', process.env.APOLLO_VALIDATE);
+    console.log('  ');
+    console.log('IF MIGRATIONS DONT WORK CHECK MIKRO ORM GENERATED MIGRATION FOR DOUBLE PRINTING A TABLE CHANGE....');
+    console.log('For some reason this keeps occuring..');
     console.log('  ');
 }
