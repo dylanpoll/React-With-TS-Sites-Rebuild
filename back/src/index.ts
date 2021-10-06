@@ -23,7 +23,7 @@ const maxCookieAge:number = +importAgeValue;//if I do not do this the compilers 
 const willDisableTouch: boolean = process.env.COOKIE_DISABLETOUCH === 'true';
 const isHTTPonly: boolean = process.env.COOKIE_HTTPONLY === 'true';
 const whatSameSite: any = process.env.COOKIE_SAMESITE;
-const domainName: any = process.env.COOKIE_DOMAIN ;
+const domainName: any = process.env.COOKIE_DOMAIN;
 const willReSave: boolean = process.env.COOKIE_RESAVE === 'true';
 const willSaveUninitialized: boolean = process.env.COOKIE_SAVEUNINITIALIZED === 'true';
 const apolloCors: boolean = process.env.APOLLO_CORS === 'true';
