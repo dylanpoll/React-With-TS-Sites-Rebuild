@@ -8,6 +8,8 @@ import { toErrorMap } from "../utilities/errormap";
 import { useRouter } from "next/router"
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../utilities/createUrqlClient";
+import { Navigation } from "../components/navigation";
+import { Banner } from "../components/banner";
 interface registerProps {}
 
 // eslint-disable-next-line no-empty-pattern
@@ -16,7 +18,9 @@ const router = useRouter();
 const [, register] = useRegisterMutation();
 
     return (
-    <Wrapper>      
+    <Wrapper>
+        <Navigation/>
+        <Banner />       
         <Formik 
             initialValues={{ username: "", password: "", email:"" }} 
                 onSubmit={async ( values, {setErrors} ) => {

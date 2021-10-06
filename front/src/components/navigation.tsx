@@ -58,6 +58,9 @@ export const Navigation: React.FC<{}> = ({}) => {
               </Button>
               <NextLink href="/post">
                 <Link> Post </Link>
+            </NextLink>     
+            <NextLink href="/postproject">
+                <Link> Post a new project </Link>
             </NextLink>                         
             </>
           );

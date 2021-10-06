@@ -1,5 +1,6 @@
-mutation createPost($body: String!, $title: String!){
-  createPost(
+mutation updatePost($id: Float!, $body: String!, $title: String!){
+  updatePost(
+    id: $id
     title: $title 
     body: $body
   ) { 
@@ -10,4 +11,3 @@ mutation createPost($body: String!, $title: String!){
     body
   }
 }
-

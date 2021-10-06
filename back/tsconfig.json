@@ -24,6 +24,6 @@
     "baseUrl": "."
   },
   "exclude": ["node_modules"],
-  "include": ["./src/**/*.tsx", "./src/**/*.ts", "src/nodeMailer/Nodemailer.ts"],
+  "include": ["./src/**/*.tsx", "./src/**/*.ts", "src/nodeMailer/Nodemailer.ts", "src/migrations/Migration20210927085615.ts"],
   "typeRoots": ["./src/index", "./node_modules/@types"]
 }

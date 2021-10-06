@@ -12,7 +12,8 @@ import { MyContext } from './types';
 import Redis from "ioredis";//redis idle client timeout is set to 300 seconds at current. I am currently using my VPS hosted redis for development https://redis.io/commands/auth for more info on the params I am using
 import session from "express-session";
 import connectRedis from 'connect-redis';
-import { Post } from "./entities/Posts";
+import { ProjectResolver } from "./resolvers/project";
+//import { Post } from "./entities/Posts";
 
 // I will need to run a bloat check at the end of development and optimize accordingly https://create-react-app.dev/docs/analyzing-the-bundle-size/
 
@@ -34,7 +35,7 @@ export const __prod__: boolean = process.env.Node_ENV === 'production';  //if in
 
 const main = async () => {
         const orm = await MikroORM.init(mikroConfig);// I will not be automating the migrations process as I would rather manually handle migrations.
-        await orm.em.nativeDelete(Post, {});  // this will wipe all users or whatever you set.
+        //await orm.em.nativeDelete(Post, {});  // this will wipe all users or whatever you set.
         loadStatement();    //made a function for easy disabling by comment.
         //emailTester();    // run a test email on load to check a template or settings out.
         const app = express();
@@ -51,10 +52,10 @@ const main = async () => {
                 disableTouch: willDisableTouch ,            // touching is used to keep a connected user auth token active, disabling this means they can sit idle and not have auth expire. less secure
                 }),
             cookie: {
-                maxAge: maxCookieAge ,                      //this sets the age for the cookie to 10 years
+                maxAge: maxCookieAge ,                      
                 httpOnly: isHTTPonly,
-                sameSite: whatSameSite,                     // may need to change this... remember updates and issues with other projects and security settings 
-                secure: __prod__,                           // cookie only works in http
+                sameSite: whatSameSite,                      
+                secure: __prod__,                           
                 domain: __prod__ ? domainName : undefined,  // the ? in TS It is to mark the parameter as optional.https://www.typescriptlang.org/docs/handbook/2/functions.html#optional-parameters this works with cors and more or less outlines where the cookie is valid and to be used
                 },
             saveUninitialized: willSaveUninitialized,  // @ts-ignore     //creates a session by default, so to prevent that we turn it to false.
@@ -64,7 +65,7 @@ const main = async () => {
         );
         console.log('Redis connection estalished.');
         const apolloServer = new ApolloServer({ 
-            schema: await buildSchema({resolvers: [PostResolver, UserResolver], validate: apolloValid}),
+            schema: await buildSchema({resolvers: [PostResolver, UserResolver, ProjectResolver], validate: apolloValid}),
             // @ts-ignore  
             context: ({req, res}): MyContext =>  ({ 
                 em: orm.em, 

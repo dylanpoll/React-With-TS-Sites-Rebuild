@@ -3,6 +3,7 @@ import { Post } from "./entities/Posts";
 import { MikroORM } from "@mikro-orm/core";
 import path from "path";
 import { User } from "./entities/User";
+import { Projects } from "./entities/Projects";
 require('dotenv/config');
 
 export default { //using a .env    https://mikro-orm.io/docs/configuration/#using-environment-variables 
@@ -20,7 +21,7 @@ export default { //using a .env    https://mikro-orm.io/docs/configuration/#usin
             //safe: false, // allow to disable table and column dropping    
             //emit: 'ts', // migration generation mode
           },
-    entities: [Post,User],
+    entities: [Post,User,Projects],
     dbName: process.env.DBNAME,
     type: process.env.MIKRO_TYPE,
     debug: !__prod__, // this leaves debugging on only durring production

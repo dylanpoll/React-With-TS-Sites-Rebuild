@@ -9,13 +9,17 @@ import { toErrorMap } from "../utilities/errormap";
 import { useRouter } from "next/router"
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../utilities/createUrqlClient";
+import { Navigation } from "../components/navigation";
+import { Banner } from "../components/banner";
 
 // eslint-disable-next-line no-empty-pattern
 const Login: React.FC<{}> = ({}) => {
   const router = useRouter();
   const [, login] = useLoginMutation();
       return (
-        <Wrapper>      
+        <Wrapper>
+            <Navigation/>
+            <Banner />      
             <Formik 
                 initialValues={{ loginType: "", password: "" }} 
                     onSubmit={ async ( values, { setErrors } ) => {

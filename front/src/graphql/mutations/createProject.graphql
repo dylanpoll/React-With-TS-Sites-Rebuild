@@ -1,5 +1,5 @@
-mutation createPost($body: String!, $title: String!){
-  createPost(
+mutation createProject($body: String!, $title: String!){
+  createProject(
     title: $title 
     body: $body
   ) { 
@@ -10,4 +10,3 @@ mutation createPost($body: String!, $title: String!){
     body
   }
 }
-

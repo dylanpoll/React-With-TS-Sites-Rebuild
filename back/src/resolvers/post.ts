@@ -20,13 +20,11 @@ export class PostResolver {
     async createPost(                       // this is made async due to the await used below
         @Arg('title') title: string,        //graphQL can infer types as well, above I manually set the types, appears to not always be needed but sometimes does need to be done.
         @Arg('body') body: string, 
-        @Arg('catagory') catagory: string,   
         @Ctx() { em }: MyContext): Promise<Post> {
             const post = em.create(Post, 
                 {
                     title,
                     body,
-                    catagory
                 });      // making a Post object named post to then post to the DB
             await em.persistAndFlush(post);             // passing it to graphQL to post the object to the DB
             return post;
@@ -35,7 +33,8 @@ export class PostResolver {
     @Mutation(() => Post, {nullable: true})  
     async updatePost(                       
         @Arg('id') id: number,  
-        @Arg('title', () => String, {nullable: true }) title: string,        
+        @Arg('title', () => String, {nullable: true }) title: string,
+        @Arg('body') body: string,          
         @Ctx() { em }: MyContext): Promise<Post | null> {
             const post = await em.findOne(Post,{id});   // creates a object and fills it with the data from the db entree with the ID that matches
             if(!post){                                  //uses data attaced to object to validate
@@ -43,6 +42,7 @@ export class PostResolver {
             }
             if(typeof title !== 'undefined'){            //if the title is not undefined than it has a prior listing so we then know to change we re write it
                 post.title = title;                      //the object value for title from the db is assigned the value from the querry submission so we can change just that one value  
+                post.body = body; 
                 await em.persistAndFlush(post);          // we send it back to the DB
             }           
             return post;

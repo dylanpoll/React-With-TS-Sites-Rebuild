@@ -23,16 +23,7 @@ export class Post {
 
   @Field(() => String)  
     @Property({ type: "text" })  
-      body!: string;
-
-  @Field(() => String)  
-    @Property({ type: "text" })  
-      catagory!: string;
-
-//  @Field(() => String)  
-//    @Property({ type: "text" })  
-//      owner!: string;
-    
+      body!: string;    
 }
 /*
 entities are the listings for the shema values

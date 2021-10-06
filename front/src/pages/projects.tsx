@@ -3,13 +3,13 @@ import { withUrqlClient } from 'next-urql';
 import { Banner } from '../components/banner';
 import { DarkModeSwitch } from '../components/darkModeSwitch';
 import { Navigation } from '../components/navigation';
-import { usePostsQuery } from '../generated/graphql';
+import { useProjectsQuery } from '../generated/graphql';
 import { createUrqlClient } from '../utilities/createUrqlClient';
 
 
 
 const Projects = () => {
-  const [{data}] = usePostsQuery();
+  const [{data}] = useProjectsQuery();
 
   return (
   <div>
@@ -20,11 +20,12 @@ const Projects = () => {
       alignItems="center"
       justifyContent="flex-start"
       ml="10vw"
+      mr="10vw"
     >
     <Box>
       {!data ? (
         <div> Loading..... </div>
-      ) : data.posts.map( (p) =>
+      ) : data.projects.map( (p) =>
           <div key={p.id}>
             <br/>
             <Box
@@ -32,6 +33,7 @@ const Projects = () => {
             >
             <Text
             m="6"  //margin
+            
             bgGradient="linear(to-l, #7928CA, #FF0080)"
             bgClip="text"
             fontSize="6xl"
@@ -46,11 +48,6 @@ const Projects = () => {
             </Box>
           </div>)}  {/* this states if != no data present returns a div printing out "loading..." -> : breaks statement into 2 argument outcome, -> print and map data  */}
       </Box>
-      <Text>
-        <br/>
-          Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{' '}
-          <Code>typescript</Code>.
-      </Text>
     <DarkModeSwitch />
     </Flex>
   </div>

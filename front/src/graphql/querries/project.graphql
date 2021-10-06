@@ -1,5 +1,5 @@
-query Posts {
-posts {
+query projects {
+projects {
 		id
 		createdAt
 		updatedAt 
