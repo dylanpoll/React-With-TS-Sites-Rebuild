@@ -5,7 +5,7 @@ import React from "react";
 //import { useRouter } from "next/router";
 
 // eslint-disable-next-line no-empty-pattern
-export const Navigation: React.FC<{}> = ({}) => {
+export const Navigation = ({}) => {
     //const router = useRouter();
     var body = null;
     const [{data, fetching}] = useMeQuery();    //fetching is a boolean value from URQL  https://formidable.com/open-source/urql/docs/api/urql/

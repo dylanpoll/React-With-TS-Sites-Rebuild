@@ -3,15 +3,15 @@ import {Formik, Form } from "formik";
 import { Box, Button } from "@chakra-ui/react";
 import { Wrapper } from "../components/wrapper";
 import { InputField } from "../components/inputField";
-import { useCreateProjectMutation } from "../generated/graphql";
+import { useCreatePostMutation} from "../generated/graphql";
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../utilities/createUrqlClient";
 import { Navigation } from "../components/navigation";
 import { Banner } from "../components/banner";
 
 // eslint-disable-next-line no-empty-pattern
-const Project: React.FC<{}> = ({}) => {
-const [, createProject] = useCreateProjectMutation();
+const Post = ({}) => {
+const [, createPost] = useCreatePostMutation();
     return (
     <Wrapper>
         <Navigation/>
@@ -20,7 +20,7 @@ const [, createProject] = useCreateProjectMutation();
             initialValues={{ title: "", body: ""}} 
                 onSubmit={async ( values, {setErrors} ) => {
                     //console.log(values);
-                    await createProject(values);
+                    await createPost(values);
             }} 
         >
         {({ isSubmitting }) => (
@@ -44,4 +44,4 @@ const [, createProject] = useCreateProjectMutation();
 );
 };
 
-export default withUrqlClient(createUrqlClient)(Project);
+export default withUrqlClient(createUrqlClient)(Post);

@@ -8,7 +8,7 @@ const ProductImage = chakra(Image, {
 })//const greetme = "../../public/greetme.jpg";
 
 // eslint-disable-next-line no-empty-pattern
-export const Banner : React.FC<{}> = ({}) => {
+export const Banner = ({}) => {
 
     return(
         <Flex >
