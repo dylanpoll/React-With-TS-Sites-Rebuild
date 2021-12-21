@@ -10,55 +10,56 @@ const Projects = () => {
   const [{data}] = useProjectsQuery();
   return (
     <>
-    <Navigation/>
-    <Banner/>
-    <Flex  
-      direction="column"
-      alignItems="center"
-      justifyContent="flex-start"
-    >
-      <Box
-        w="70vw"
+      <Navigation/>
+      <Banner/>
+      <Flex  
+        direction="column"
+        alignItems="center"
+        justifyContent="flex-start"
       >
-      {!data ? (
-        <div> Loading..... </div>
-      ) : data.projects.map( (post) =>
-          <div key={post.id}>
-            <br/>
-            <Box
-              w="100%" 
-              bg="black" 
-            >  
-              <Box
-                pl="5%" //padding left
-                pr="5%"  //padding right
-                textAlign="left"
-              >         
-                <Text
-                  color="white"
-                  fontSize="2em"
-                  fontWeight="extrabold"
-                >
-                  {post.title}
-                </Text>
-              </Box>
-              <Box
-                pl="8%"
-                pr="8%"
-              >
-                <Text
-                color="white"
-                > 
-                  <br/> {post.body}
-                </Text>
-              </Box>
-            </Box>
-            {/*<Button onClick={//</div>liveEdit(post)}>  EDIT </Button>*/}
-      </div>
-      )}  
-    </Box>
-    <DarkModeSwitch />
-    </Flex>
+        <Box
+          w="70vw"
+        >
+          {!data ? (
+            <div> Loading..... </div>
+          ) : data.projects.map( (post) =>
+              <div key={post.id}>
+                <br/>
+                <Box
+                  w="100%" 
+                  bg="black" 
+                >  
+                  <Box
+                    pl="5%" //padding left
+                    pr="5%"  //padding right
+                    textAlign="left"
+                  >         
+                    <Text
+                      color="white"
+                      fontSize="2em"
+                      fontWeight="extrabold"
+                    >
+                      {post.title}
+                    </Text>
+                  </Box>
+                  <Box
+                    pl="8%"
+                    pr="8%"
+                    pb="3%"
+                  >
+                    <Text
+                    color="white"
+                    > 
+                      <br/> {post.body}
+                    </Text>
+                  </Box>
+                </Box>
+                {/*<Button onClick={//</div>liveEdit(post)}>  EDIT </Button>*/}
+          </div>
+          )}  
+        </Box>
+        <DarkModeSwitch />
+      </Flex>
   </>
   )
 }

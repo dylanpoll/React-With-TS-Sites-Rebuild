@@ -1,18 +1,11 @@
-import {  Link as  Text,   Box, Flex
-  //, Button, Code,  Switch, Link
-    } from '@chakra-ui/react';
-//import { Form, Formik } from 'formik';
+import {  Link as  Text,   Box, Flex } from '@chakra-ui/react';
 import { withUrqlClient } from 'next-urql';
 import React from 'react';
 import { Banner } from '../components/banner';
 import { DarkModeSwitch } from '../components/darkModeSwitch';
-//import { InputField } from '../components/inputField';
 import { Navigation } from '../components/navigation';
-import { usePostsQuery 
-  //, useUpdatePostMutation 
-        } from '../generated/graphql';
+import { usePostsQuery } from '../generated/graphql';
 import { createUrqlClient } from '../utilities/createUrqlClient';
-
 
 const Blog = () => {
   const [{data}] = usePostsQuery();
@@ -55,6 +48,7 @@ const Blog = () => {
                 <Box
                   pl="8%"
                   pr="8%"
+                  pb="3%"
                 >
                   <Text
                   color="white"
