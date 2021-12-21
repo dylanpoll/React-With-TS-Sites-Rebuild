@@ -13,34 +13,36 @@ import { Banner } from "../components/banner";
 const Post = ({}) => {
 const [, createPost] = useCreatePostMutation();
     return (
-    <Wrapper>
+      <>
         <Navigation/>
-        <Banner />       
-        <Formik 
-            initialValues={{ title: "", body: ""}} 
-                onSubmit={async ( values, {setErrors} ) => {
-                    //console.log(values);
-                    await createPost(values);
-            }} 
-        >
-        {({ isSubmitting }) => (
-          <Form>
-          <InputField
-            name="title"
-            placeholder="Title"
-            label="Title"
-          />
-         <Box mt={2}>
-            <InputField 
-            name="body" 
-            placeholder="Body" 
-            label="Body" />
-          </Box>
-          <Button mt={2} type="submit" isLoading={isSubmitting} > Submit </Button>
-        </Form>
-      )}
-    </Formik>
-  </Wrapper>
+        <Banner />      
+        <Wrapper> 
+            <Formik 
+                initialValues={{ title: "", body: ""}} 
+                    onSubmit={async ( values, {setErrors} ) => {
+                        //console.log(values);
+                        await createPost(values);
+                }} 
+            >
+              {({ isSubmitting }) => (
+              <Form>
+                <InputField
+                  name="title"
+                  placeholder="Title"
+                  label="Title"
+                />
+                <Box mt={2}>
+                  <InputField 
+                  name="body" 
+                  placeholder="Body" 
+                  label="Body" />
+                </Box>
+                <Button mt={2} type="submit" isLoading={isSubmitting} > Submit </Button>
+              </Form>
+            )}
+          </Formik>
+        </Wrapper>
+      </>
 );
 };
 

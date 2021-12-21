@@ -74,8 +74,14 @@ export const Navigation = ({}) => {
             </Box> 
 
             <Box p="1%" >
-                <NextLink href="/postproject">
+                <NextLink href="/createproject">
                     <Link> Post a new project </Link>
+                </NextLink>   
+            </Box>
+
+            <Box p="1%" >
+                <NextLink href="/createpost">
+                    <Link> Post a new Blog </Link>
                 </NextLink>   
             </Box>
 
