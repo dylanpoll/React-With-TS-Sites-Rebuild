@@ -17,42 +17,47 @@ const Login: React.FC<{}> = ({}) => {
   const router = useRouter();
   const [, login] = useLoginMutation();
       return (
-        <Wrapper>
-            <Navigation/>
-            <Banner />      
-            <Formik 
-                initialValues={{ loginType: "", password: "" }} 
-                    onSubmit={ async ( values, { setErrors } ) => {
-                        const response = await login(values);
-                        if (response.data?.login.errors){ //if there are errors, no argument present makes this a true false for if the data is present or null
-                            setErrors(toErrorMap(response.data.login.errors));
-                        } else if (response.data?.login.user){ // if user data present is true
-                          //console.log(response.data?.login.user); //prints the user data in console 
-                          router.push("/");  //this send the user back to the home page.
-                        }
-                }} 
-            >
-            {({ isSubmitting }) => (
-              <Form>
-              <InputField
-                name="loginType"
-                placeholder="Username or email"
-                label="Username or email"
-              />
+        <>
+          <Navigation/>
+          <Banner />     
 
-              <Box mt={2}>
+          <Wrapper> 
+            
+              <Formik 
+                  initialValues={{ loginType: "", password: "" }} 
+                      onSubmit={ async ( values, { setErrors } ) => {
+                          const response = await login(values);
+                          if (response.data?.login.errors){ //if there are errors, no argument present makes this a true false for if the data is present or null
+                              setErrors(toErrorMap(response.data.login.errors));
+                          } else if (response.data?.login.user){ // if user data present is true
+                            //console.log(response.data?.login.user); //prints the user data in console 
+                            router.push("/");  //this send the user back to the home page.
+                          }
+                  }} 
+              >
+              {({ isSubmitting }) => (
+                <Form>
                 <InputField
-                  name="password"
-                  placeholder="Password"
-                  label="Password"
-                  type="password"
+                  name="loginType"
+                  placeholder="Username or email"
+                  label="Username or email"
                 />
-              </Box>
-              <Button mt={2} type="submit" isLoading={isSubmitting} > Login </Button>
-            </Form>
-          )}
-        </Formik>
-      </Wrapper>
+
+                <Box mt={2}>
+                  <InputField
+                    name="password"
+                    placeholder="Password"
+                    label="Password"
+                    type="password"
+                  />
+                </Box>
+                <Button mt={2} type="submit" isLoading={isSubmitting} > Login </Button>
+              </Form>
+            )}
+          </Formik>
+
+        </Wrapper>
+      </>
   );
 };
 

@@ -1,4 +1,4 @@
-import { Box, Flex, Link, Button } from "@chakra-ui/react";
+import { Box, Link, Button, ChakraProvider, AspectRatio } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
 import React from "react";
@@ -15,65 +15,98 @@ export const Navigation = ({}) => {
 
     //console.log('data ', data)
 
-    if(fetching){
-    //still getting data so not decided if logged in or not
+    if(fetching){ //still getting data so not decided if logged in or not
+
     } else if(!data?.me){ //no user data means not logged in so offer options
         body = (
-            <>
-            <NextLink href="/">
-                <Link> Home </Link>
-            </NextLink>
-            <NextLink href="/projects">
-                <Link> Projects </Link>
-            </NextLink>
-            <NextLink href="/login">
-                <Link> Login </Link>
-            </NextLink>
-            <NextLink href="/register">
-                <Link> Register </Link>
-            </NextLink>
-            <NextLink href="/post">
-                <Link> Post </Link>
-            </NextLink>
-            </>
+        <>
+            <Box p="1%" >
+                <NextLink href="/">
+                    <Link> Home </Link>
+                </NextLink>
+            </Box>
+
+            <Box p="1%" >
+                <NextLink href="/projects">
+                    <Link> Projects </Link>
+                </NextLink>
+            </Box>
+
+            <Box p="1%" >
+                <NextLink href="/blog">
+                    <Link> Blog </Link>
+                </NextLink>
+            </Box>
+
+            <Box p="1%" >
+                <NextLink href="/login">
+                    <Link> Login </Link>
+                </NextLink>
+            </Box>
+
+            <Box p="1%" >
+                <NextLink href="/register">
+                    <Link> Register </Link>
+                </NextLink>
+            </Box>
+            
+        </>
         );
     }else{  //as there is user data wont offer signin or registering
         body = (
             <>
-            <NextLink href="/">
-                <Link> Home </Link>
-            </NextLink>
-            <NextLink href="/projects">
-                <Link> Projects </Link>
-            </NextLink>
-              <Box> Hello {data.me.username} </Box>
-              <Button
-                onClick={ async () => { // I have gone with and without async, I see no change of the issue however there is a returned statement so I am leaving it async
-                  await logout();   
-                }}
-                isLoading={logoutFetching}  // we equate fetching to the value not used for useMeQuery();
-                variant="link"
-              >
-                logout
-              </Button>
-              <NextLink href="/post">
-                <Link> Post </Link>
-            </NextLink>     
-            <NextLink href="/postproject">
-                <Link> Post a new project </Link>
-            </NextLink>                         
+            <Box p="1%" >
+                <NextLink href="/">
+                    <Link> Home </Link>
+                </NextLink>
+            </Box>
+
+            <Box p="1%" >
+                <NextLink href="/projects">
+                    <Link> Projects </Link>
+                </NextLink>
+            </Box>
+
+            <Box p="1%" >
+                <NextLink href="/blog">
+                    <Link> Blog </Link>
+                </NextLink>
+            </Box> 
+
+            <Box p="1%" >
+                <NextLink href="/postproject">
+                    <Link> Post a new project </Link>
+                </NextLink>   
+            </Box>
+
+            <Box p="1%" > 
+              Hello {data.me.username}
+            </Box>
+
+            <Box p="1%" >
+                <Button
+                    onClick={ async () => { // I have gone with and without async, I see no change of the issue however there is a returned statement so I am leaving it async
+                    await logout();   
+                    }}
+                    isLoading={logoutFetching}  // we equate fetching to the value not used for useMeQuery();
+                    variant="link"
+                >
+                    logout
+                </Button>
+            </Box>
+            
             </>
           );
     }
     return(
-        <Flex 
-        p={4} 
-        alignItems="flex-start" 
-        justifyContent="space-around"
-        >
-        <Box>
-        {body}
-        </Box>
-        </Flex>
+        <ChakraProvider>
+            <AspectRatio flexGrow={10} ratio={1.85 / 1} maxH="50">
+                <Box
+                color="black"
+                >
+                {body}
+                </Box>
+            </AspectRatio>
+        </ChakraProvider>
     )
 }

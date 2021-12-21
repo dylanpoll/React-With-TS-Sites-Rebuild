@@ -1,8 +1,8 @@
 import "dotenv-safe/config";
 import nodemailer from "nodeMailer";
 
-const HOST: string | undefined = process.env.NODEMAILER_HOST; //I do not want to have these values exposed on my repo and to avoid type definition 
-var importPort: any = process.env.NODEMAILER_PORT;//issues this is my workaround, I will improve this at a later time. This only works if they are global
+const HOST: string | undefined = process.env.NODEMAILER_HOST; // I do not want to have these values exposed on my repo and to avoid type definition 
+var importPort: any = process.env.NODEMAILER_PORT; // issues this is my workaround, I will improve this at a later time. This only works if they are global
 const PORT: number | undefined = +importPort;
 var importSecure: any = process.env.NODEMAILER_SECURE;
 const SECURE: boolean | undefined = importSecure;

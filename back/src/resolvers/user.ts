@@ -16,7 +16,7 @@ class UsernamePasswordInput {
 @ObjectType()                     //object types we return from our mutations
 class UserResponse {
     @Field(()=> [FieldError], 
-        {nullable: true}) errors?: FieldError[];    //this is used to pass errors to the FieldError object so graphQL can return that object instead of a massive report from the database
+        {nullable: true}) errors?: FieldError[];  //this is used to pass errors to the FieldError object so graphQL can return that object instead of a massive report from the database
 
     @Field(() => User, 
         {nullable: true}) user?: User;
@@ -116,7 +116,7 @@ export class UserResolver{
             @Ctx() { req, res }: MyContext ){  
                 let cookieName: any | undefined = process.env.COOKIE_NAME;  //can't change the expected type from string | undefined to string, to this is where I am.
                 return new Promise( (terminate) => 
-                req.session.destroy( err => { // this line kills the established redis session 
+                req.session.destroy( err => {    // this line kills the established redis session 
                     res.clearCookie(cookieName); //this destroys the cookie stored client side.
                     if(err){
                         console.log(err);

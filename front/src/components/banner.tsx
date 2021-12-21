@@ -1,38 +1,55 @@
-import { Box, Flex, Link, Button,  Text, chakra, useBreakpointValue  } from "@chakra-ui/react";
+import { Box, Flex, Text, chakra, ChakraProvider, AspectRatio } from "@chakra-ui/react";
 import Image from "next/image"; // evidently has issues with chackra https://github.com/chakra-ui/chakra-ui/discussions/2475 
 import React from "react";
    
 const ProductImage = chakra(Image, {
-  baseStyle: { maxH: 120, maxW: 120 },
+  baseStyle: { maxH: 277.35, maxW: 250 },
   shouldForwardProp: (prop) => ['width', 'height', 'src', 'alt'].includes(prop),
 })//const greetme = "../../public/greetme.jpg";
 
 // eslint-disable-next-line no-empty-pattern
 export const Banner = ({}) => {
-
     return(
-        <Flex >
+        <ChakraProvider>
             <Box
-            width="100%"
-            bg="#e7ad00" 
+                width="100%"
+                height="270px"
+                bg="#e7ad00"
             >
-                <Box 
-                ml="20%"
-                >
-                    <ProductImage
-                        width="100%"
-                        height="100%"
-                        w="auto"
-                        h="auto"
-                        borderWidth={5}
-                        borderStyle="solid"
-                        src="/assets/greetme.jpg" 
-                        alt="banner" 
-                        className = "banner"
-                    />
-                </Box>
+                <AspectRatio flexGrow={5} ratio={1.85 / 1} maxH="270px">
+                    <Flex >
+                        <Box
+                            width="100%"
+                            height="100%"
+                        >                
+                            <Box 
+                                pl="60%"
+                            >
+                                <ProductImage
+                                    width="250"
+                                    height="277.35"
+                                    w="250px"
+                                    h="277.35px"
+                                    src="/assets/greetme.jpg" 
+                                    alt="banner" 
+                                    className = "banner"
+                                />
+                            </Box>
+                        </Box>
+                        <Box
+                            width="100%"
+                        >
+                            <Text       
+                                textColor="black"
+                                fontSize="10em"
+                            > 
+                                Hi. 
+                            </Text>  
+                        </Box>
+                    </Flex>
+                </AspectRatio>
             </Box>
-        </Flex>
+        </ChakraProvider>
     )
 }
 

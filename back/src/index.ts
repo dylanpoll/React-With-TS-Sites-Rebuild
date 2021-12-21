@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import "dotenv-safe/config";
+import "dotenv-safe/config"; //.env module for typescript so I can avoid hard coding anything that could even partially be a security issue. A little bit excessive but I enjoy security. 
 import cors from "cors";
 import { MikroORM } from "@mikro-orm/core";
 import mikroConfig from "./mikro-orm.config";
@@ -76,6 +76,7 @@ const main = async () => {
         console.log('Apollo is loaded.');
         app.listen(process.env.EXPRESS_PORT, () => { console.log('Express is loaded.'); console.log('  '); });
     };
+    
 declare module "express-session" { interface Session { userId: number; }  };
 console.log("starting up the project.");
 main().catch((err) => {

@@ -1,14 +1,87 @@
-import {  Link as  Text,  Code,  Switch, Box, Flex, Button, Link} from '@chakra-ui/react';
-import { Form, Formik } from 'formik';
+import {  Link as  Text,   Box, Flex
+  //, Button, Code,  Switch, Link
+    } from '@chakra-ui/react';
+//import { Form, Formik } from 'formik';
 import { withUrqlClient } from 'next-urql';
 import React from 'react';
 import { Banner } from '../components/banner';
 import { DarkModeSwitch } from '../components/darkModeSwitch';
-import { InputField } from '../components/inputField';
+//import { InputField } from '../components/inputField';
 import { Navigation } from '../components/navigation';
-import { usePostsQuery, useUpdatePostMutation } from '../generated/graphql';
+import { usePostsQuery 
+  //, useUpdatePostMutation 
+        } from '../generated/graphql';
 import { createUrqlClient } from '../utilities/createUrqlClient';
 
+
+const Blog = () => {
+  const [{data}] = usePostsQuery();
+  return (
+    <>
+      <Navigation/>
+      <Banner/>
+      <Flex  
+        direction="column"
+        alignItems="center"
+        justifyContent="flex-start"
+      >
+        <Box
+        w="70vw"
+        >
+        {!data ? (
+          <div> Loading..... </div>
+        ) : data.posts.map( (post) =>
+            <div key={post.id}>
+              <br/>
+              <Box
+                w="100%" 
+                bg="black" 
+              >  
+
+                <Box
+                  pl="5%" //padding left
+                  pr="5%"  //padding right
+                  textAlign="left"
+                >         
+                  <Text
+                    color="white"
+                    fontSize="2em"
+                    fontWeight="extrabold"
+                  >
+                    {post.title}
+                  </Text>
+                </Box>
+                
+                <Box
+                  pl="8%"
+                  pr="8%"
+                >
+                  <Text
+                  color="white"
+                  > 
+                    <br/> 
+                    {post.body}
+                  </Text>
+                </Box>
+              
+              </Box>
+              {/*<Button onClick={//</div>liveEdit(post)}>  EDIT </Button>*/}
+        </div>
+        )}  {/* this states if != no data present returns a div printing out "loading..." -> : breaks statement into 2 argument outcome, -> print and map data  */}
+        
+        </Box>
+
+      <DarkModeSwitch />
+      </Flex>
+    </>
+  )
+}
+export default withUrqlClient(createUrqlClient)(Blog); // be default this is a standard urql without ssr on 
+
+
+
+/*
+//copy before editing 
 
 const Blog = () => {
   const [{data}] = usePostsQuery();
@@ -23,12 +96,6 @@ const Blog = () => {
       justifyContent="flex-start"
       ml="10vw"
     >
-      <Text>
-        <br/>
-          Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{' '}
-          <Code>typescript</Code>.
-      </Text>
-
       <Box>
       {!data ? (
         <div> Loading..... </div>
@@ -52,21 +119,20 @@ const Blog = () => {
             {post.body}
             </Text>
             </Box>
-            {/*<Button onClick={//</div>liveEdit(post)}>  EDIT </Button>*/}
-            
-      </div>
-      )}  {/* this states if != no data present returns a div printing out "loading..." -> : breaks statement into 2 argument outcome, -> print and map data  */}
-      </Box>
-    <DarkModeSwitch />
-    </Flex>
-  </div>
-  )
-}
-export default withUrqlClient(createUrqlClient)(Blog); // be default this is a standard urql without ssr on 
+            <Button onClick={//</div>liveEdit(post)}>  EDIT </Button>
+              </div>
+              )}  
+              </Box>
+            <DarkModeSwitch />
+            </Flex>
+          </div>
+          )
+        }
+        export default withUrqlClient(createUrqlClient)(Blog); // be default this is a standard urql without ssr on 
+        
 
 
 
-/*
 // I am going to work on all of this further later and commenting out what does not currently work...
 
 const liveEdit = (selectedPost: any) => {

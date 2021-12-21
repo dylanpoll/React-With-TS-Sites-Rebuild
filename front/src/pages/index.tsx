@@ -1,4 +1,4 @@
-import {  Link as  Text,  Code,  Switch, Box, Flex, Button, Link} from '@chakra-ui/react';
+import {  Link as  Text, Flex, Box } from '@chakra-ui/react';
 import { withUrqlClient } from 'next-urql';
 import React from 'react';
 import { Banner } from '../components/banner';
@@ -8,23 +8,27 @@ import { createUrqlClient } from '../utilities/createUrqlClient';
 
 const Index = () => {
   return (
-  <div>
-    <Navigation/>
-    <Banner />
-    <Flex  
-      direction="column"
-      alignItems="center"
-      justifyContent="flex-start"
-      ml="10vw"
-    >
-      <Text>
-        <br/>
-          Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{' '}
-          <Code>typescript</Code>.
-      </Text>
-    <DarkModeSwitch />
-    </Flex>
-  </div>
+    <>
+      <Navigation/>
+      <Banner />
+
+      <Flex  
+        direction="column"
+        alignItems="center"
+        justifyContent="flex-start"
+        ml="10vw"
+      >
+        <Box
+        
+        >
+          <Text>
+            TODO : About me 
+          </Text>
+        </Box>
+        <DarkModeSwitch />
+      </Flex>
+      
+    </>
   )
 }
 export default withUrqlClient(createUrqlClient)(Index); // be default this is a standard urql without ssr on 
