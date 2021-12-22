@@ -9,7 +9,6 @@ import { useRouter } from "next/router"
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../utilities/createUrqlClient";
 import { Navigation } from "../components/navigation";
-import { Banner } from "../components/banner";
 
 interface registerProps {}
 
@@ -19,8 +18,7 @@ const router = useRouter();
 const [, register] = useRegisterMutation();
     return (
       <>    
-        <Navigation/>
-        <Banner />     
+        <Navigation/> 
         <Wrapper>  
             <Formik 
                 initialValues={{ username: "", password: "", email:"" }} 

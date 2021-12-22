@@ -10,7 +10,6 @@ import { useRouter } from "next/router"
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../utilities/createUrqlClient";
 import { Navigation } from "../components/navigation";
-import { Banner } from "../components/banner";
 
 // eslint-disable-next-line no-empty-pattern
 const Login: React.FC<{}> = ({}) => {
@@ -19,7 +18,6 @@ const Login: React.FC<{}> = ({}) => {
       return (
         <>
           <Navigation/>
-          <Banner />     
 
           <Wrapper> 
             

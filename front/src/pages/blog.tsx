@@ -1,8 +1,6 @@
 import {  Link as  Text,   Box, Flex } from '@chakra-ui/react';
 import { withUrqlClient } from 'next-urql';
 import React from 'react';
-import { Banner } from '../components/banner';
-import { DarkModeSwitch } from '../components/darkModeSwitch';
 import { Navigation } from '../components/navigation';
 import { usePostsQuery } from '../generated/graphql';
 import { createUrqlClient } from '../utilities/createUrqlClient';
@@ -12,7 +10,6 @@ const Blog = () => {
   return (
     <>
       <Navigation/>
-      <Banner/>
       <Flex  
         direction="column"
         alignItems="center"
@@ -64,8 +61,7 @@ const Blog = () => {
         )}  {/* this states if != no data present returns a div printing out "loading..." -> : breaks statement into 2 argument outcome, -> print and map data  */}
         
         </Box>
-
-      <DarkModeSwitch />
+        
       </Flex>
     </>
   )

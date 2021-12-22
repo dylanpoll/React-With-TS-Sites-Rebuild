@@ -7,7 +7,6 @@ import { useCreateProjectMutation } from "../generated/graphql";
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../utilities/createUrqlClient";
 import { Navigation } from "../components/navigation";
-import { Banner } from "../components/banner";
 
 // eslint-disable-next-line no-empty-pattern
 const Project = ({}) => {
@@ -15,7 +14,6 @@ const [, createProject] = useCreateProjectMutation();
     return (
       <>        
         <Navigation/>
-        <Banner />  
         <Wrapper>     
           <Formik 
               initialValues={{ title: "", body: ""}} 

@@ -1,6 +1,7 @@
-import { Box, Flex, Text, chakra, ChakraProvider, AspectRatio } from "@chakra-ui/react";
+import { Box, Flex, Text, chakra, AspectRatio } from "@chakra-ui/react";
 import Image from "next/image"; // evidently has issues with chackra https://github.com/chakra-ui/chakra-ui/discussions/2475 
 import React from "react";
+import { DarkModeSwitch } from "./darkModeSwitch";
    
 const ProductImage = chakra(Image, {
   baseStyle: { maxH: 277.35, maxW: 250 },
@@ -10,7 +11,6 @@ const ProductImage = chakra(Image, {
 // eslint-disable-next-line no-empty-pattern
 export const Banner = ({}) => {
     return(
-        <ChakraProvider>
             <Box
                 width="100%"
                 height="270px"
@@ -40,16 +40,16 @@ export const Banner = ({}) => {
                             width="100%"
                         >
                             <Text       
-                                textColor="black"
+                                color="black"
                                 fontSize="10em"
                             > 
                                 Hi. 
                             </Text>  
                         </Box>
+                        <DarkModeSwitch />
                     </Flex>
                 </AspectRatio>
             </Box>
-        </ChakraProvider>
     )
 }
 

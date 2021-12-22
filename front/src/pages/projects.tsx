@@ -1,6 +1,5 @@
 import {  Link as  Text, Box, Flex} from '@chakra-ui/react';
 import { withUrqlClient } from 'next-urql';
-import { Banner } from '../components/banner';
 import { DarkModeSwitch } from '../components/darkModeSwitch';
 import { Navigation } from '../components/navigation';
 import { useProjectsQuery } from '../generated/graphql';
@@ -11,7 +10,6 @@ const Projects = () => {
   return (
     <>
       <Navigation/>
-      <Banner/>
       <Flex  
         direction="column"
         alignItems="center"
