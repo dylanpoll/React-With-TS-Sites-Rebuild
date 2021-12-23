@@ -21,6 +21,7 @@
 # next.js
 /.next/
 /out/
+/src/constants.tsx
 
 # production
 /build
