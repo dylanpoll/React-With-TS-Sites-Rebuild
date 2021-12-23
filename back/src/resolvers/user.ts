@@ -48,12 +48,16 @@ export class UserResolver{
     @Mutation(() => UserResponse)
         async register( 
             @Arg("options") options: UsernamePasswordInput,     //this calls from the class above much like a constructor and is used to get/set fields in the object associated with it.
-            @Ctx() { em, req }: MyContext): Promise<UserResponse> {
+            // eslint-disable-next-line no-empty-pattern
+            @Ctx() { 
+            //    em, req // removed while account registration is disbaled.
+            }: MyContext): Promise<UserResponse> {
                 if(options.username.length <=4){ return { errors: [{ field: "username", message: "Length does not meet the minimum requirements.", }, ], }; };  // these two use a if length argument to make certain that the username and pass are at least a certain amount of chars.
                 if(options.password.length <=5){ return { errors: [{ field: "password", message: "Length does not meet the minimum requirements.", }, ], }; };
                 if(!options.email.includes('@')){ return { errors: [{ field: "email", message: "Needs to be a valid email address.", }, ], }; };  
                 if(options.username.includes('@')){ return { errors: [{ field: "username", message: "Usernames cannot include an @ symbol.", }, ], }; };  
-                
+/*
+ disabled account creation until I have more security in place..              
                 const hashedPassword = await argon2.hash(
                     options.password
                     ); // argon2 is hashing our passwords in this instance 
@@ -71,8 +75,10 @@ export class UserResolver{
             }; // duplicate username error code used to validate, the json report sent back would indicate this.        
         
         req.session.userId = user.id; //this stores the userId value in as a session cookie that allows them to stay logged in.
-        return {user};
-        }//graphQL post to use : mutation{register(options: {username:"bobsBurgers", password:"dylanstest"}){errors{field message}user{id username}}}
+                return {user};
+*/
+                return { errors: [{ field: "username", message: "sorry, I have disabled account registration until I have configured non admin accounts.", }, ], };       
+            }//graphQL post to use : mutation{register(options: {username:"bobsBurgers", password:"dylanstest"}){errors{field message}user{id username}}}
 
 
     @Mutation(() => UserResponse)

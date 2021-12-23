@@ -1,6 +1,5 @@
 import { Entity, PrimaryKey, Property } from "@mikro-orm/core";
 import { Field, Int, ObjectType } from "type-graphql";
-//import { User } from "./User";
 
 @ObjectType()// this makes the schema work with graphQL ran by apollo 
 @Entity()// this states that the following will be entities

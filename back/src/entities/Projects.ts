@@ -9,8 +9,13 @@ export class Projects {
       id!: number
 
   @Field(() => String) 
+    @Property({ type: "text" }) 
+      createdAt!: string;
+    /*
+      @Field(() => String) 
     @Property({ type: "date" }) 
       createdAt: Date = new Date();
+    */
   
   @Field(() => String) 
     @Property({ type: "date", onUpdate: () => new Date() }) 

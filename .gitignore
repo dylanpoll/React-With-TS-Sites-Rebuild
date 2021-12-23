@@ -11,3 +11,7 @@ vscode/*
 *.code-workspace
 # Local History for Visual Studio Code
 .history/ 
+front/.env
+front/src/constants.tsx
+front/src/constants.tsx
+front/src/constants.tsx

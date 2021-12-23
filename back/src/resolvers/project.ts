@@ -54,6 +54,6 @@ export class ProjectResolver {
         @Ctx() { em }: MyContext): Promise<boolean> {                   
             await em.nativeDelete(Projects,{id});   // this is the command for deleting db listings
             return true;
-        }//graphQL post to use : mutation{deletePost(id: 1)}
+        }//graphQL post to use : mutation{deleteProject(id: 1)}
 
 }

@@ -31,14 +31,13 @@ const Index = () => {
               My aim is to make this scale well as I have more projects that will work with much of the core built into this current configuration and I have been focused on security
               as much as possible. Currently I plan on improving the UI and color theme options after improving and adding in other core features in the backend.
               <br/><br/>
-              this project is being completed with TypeScript and uses primarily the following technologies.
-              <br/><br/>
-              <Text fontWeight="bold">For the Frontend:</Text> React.js and Next.js, Chakra-UI, Next-URQL and URQL, Formik<br/>
-              <Text fontWeight="bold"></Text>For the backend : GraphQL, MikroORM, NodeMailer, Argon2, Express, IORedis, Apollo Server Express, and Express Session<br/>
-              <Text fontWeight="bold"></Text>The Databases used are : Postgres and Redis<br/>
+              this project is being completed with TypeScript and uses primarily the following technologies.<br/>
+              <Text fontWeight="bold">For the Frontend :</Text> React.js and Next.js, Chakra-UI, Next-URQL and URQL, Formik<br/>
+              <Text fontWeight="bold">For the backend :</Text> GraphQL, MikroORM, NodeMailer, Argon2, Express, IORedis, Apollo Server Express, and Express Session<br/>
+              <Text fontWeight="bold">The Databases used are :</Text> Postgres and Redis<br/>
               <br/>
               This about me is hard coded, however the blog and projects section dynamically call the content displayed from my database.
-              <br/><br/>
+              <br/>
             </Text>
           </Box>
 
@@ -79,7 +78,6 @@ const Index = () => {
               E-Mail : DylanManPoll@gmail.com  <br/>
               GitHub : github.com/dylanpoll  <br/>
               LinkdIn : linkedin.com/in/dylanpoll <br/>
-              Orlando Code Cave Discord Server : https://discord.gg/kRCTTRVt <br/>
               Discord ID : DevDylan#9707<br/>
             </Text>
           </Box>

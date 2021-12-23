@@ -209,7 +209,7 @@ export type PostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Po
 export type ProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'Projects', id: number, createdAt: string, updatedAt: string, title: string, body: string }> };
+export type ProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'Projects', id: number, createdAt : string, updatedAt: string, title: string, body: string }> };
 
 export const UserFragmentFragmentDoc = gql`
     fragment UserFragment on User {

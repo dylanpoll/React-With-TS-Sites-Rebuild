@@ -1,13 +1,15 @@
 import { dedupExchange, fetchExchange } from 'urql';
 import { cacheExchange } from '@urql/exchange-graphcache';
 import { LoginMutation, LogoutMutation, MeDocument, MeQuery, RegisterMutation } from '../generated/graphql';
-import { GRAPHQL_URL } from '../constants';
+import { GraphQLWithHTTP } from '../constants';
 import { typedCacheUpdateQuery } from './typedCacheUpdateQuery';
+
+
 
 export const createUrqlClient = (ssrExchange: any, ctx: any) => {
   //var cookie = ctx?.req?.headers?.cookie;
   return{
-    url: GRAPHQL_URL,   //this should always be your graphql link -> mine is set as a exported variable incase I use it multiple places for any reason
+    url: GraphQLWithHTTP,   //this should always be your graphql link -> mine is set as a exported variable incase I use it multiple places for any reason
     fetchOptions: {
       credentials: "include" as const,
     },

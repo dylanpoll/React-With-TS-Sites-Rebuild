@@ -16,52 +16,60 @@ const Blog = () => {
         justifyContent="flex-start"
       >
         <Box
-        w="70vw"
+          bgColor="grey"
+          w="80vw"
+          h="100%"
+          pl="5%"
         >
-        {!data ? (
-          <div> Loading..... </div>
-        ) : data.posts.map( (post) =>
-            <div key={post.id}>
-              <br/>
-              <Box
-                w="100%" 
-                bg="black" 
-              >  
+          <Box
+          w="70vw"
+          >
+          {!data ? (
+            <div> Loading..... </div>
+          ) : data.posts.map( (post) =>
+              <div key={post.id}>
+                <br/>
+                <Box
+                  w="100%" 
+                  bg="black" 
+                >  
 
-                <Box
-                  pl="5%" //padding left
-                  pr="5%"  //padding right
-                  textAlign="left"
-                >         
-                  <Text
-                    color="white"
-                    fontSize="2em"
-                    fontWeight="extrabold"
+                  <Box
+                    pl="5%" //padding left
+                    pr="5%"  //padding right
+                    textAlign="left"
+                  >         
+                    <Text
+                      color="white"
+                      fontSize="2em"
+                      fontWeight="extrabold"
+                    >
+                      {post.title}
+                    </Text>
+                    <Text> 
+                      <br/>Posted On : {post.createdAt}
+                    </Text>
+                  </Box>
+                  
+                  <Box
+                    pl="8%"
+                    pr="8%"
+                    pb="3%"
                   >
-                    {post.title}
-                  </Text>
+                    <Text
+                    color="white"
+                    > 
+                      <br/> 
+                      {post.body}
+                    </Text>
+                  </Box>
                 </Box>
-                
-                <Box
-                  pl="8%"
-                  pr="8%"
-                  pb="3%"
-                >
-                  <Text
-                  color="white"
-                  > 
-                    <br/> 
-                    {post.body}
-                  </Text>
-                </Box>
-              
-              </Box>
-              {/*<Button onClick={//</div>liveEdit(post)}>  EDIT </Button>*/}
-        </div>
-        )}  {/* this states if != no data present returns a div printing out "loading..." -> : breaks statement into 2 argument outcome, -> print and map data  */}
-        
+                {/*<Button onClick={//</div>liveEdit(post)}>  EDIT </Button>*/}
+          </div>
+          )}  {/* this states if != no data present returns a div printing out "loading..." -> : breaks statement into 2 argument outcome, -> print and map data  */}
+          
+          </Box>
         </Box>
-        
       </Flex>
     </>
   )

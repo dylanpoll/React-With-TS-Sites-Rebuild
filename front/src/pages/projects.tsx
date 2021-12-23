@@ -16,47 +16,56 @@ const Projects = () => {
         justifyContent="flex-start"
       >
         <Box
-          w="70vw"
+          bgColor="grey"
+          w="80vw"
+          h="100%"
+          pl="5%"
         >
-          {!data ? (
-            <div> Loading..... </div>
-          ) : data.projects.map( (post) =>
-              <div key={post.id}>
-                <br/>
-                <Box
-                  w="100%" 
-                  bg="black" 
-                >  
+          <Box
+            w="70vw"
+          >
+            {!data ? (
+              <div> Loading..... </div>
+            ) : data.projects.map( (post) =>
+                <div key={post.id}>
+                  <br/>
                   <Box
-                    pl="5%" //padding left
-                    pr="5%"  //padding right
-                    textAlign="left"
-                  >         
-                    <Text
-                      color="white"
-                      fontSize="2em"
-                      fontWeight="extrabold"
+                    w="100%" 
+                    bg="black" 
+                  >  
+                    <Box
+                      pl="5%" //padding left
+                      pr="5%"  //padding right
+                      textAlign="left"
+                    >         
+                      <Text
+                        color="white"
+                        fontSize="1.5em"
+                        fontWeight="extrabold"
+                      >
+                        {post.title}  
+                      </Text>
+                      <Text> 
+                        <br/>Posted On : {post.createdAt}
+                      </Text>
+                    </Box>
+                    <Box
+                      pl="8%"
+                      pr="8%"
+                      pb="3%"
                     >
-                      {post.title}
-                    </Text>
+                      <Text
+                      color="white"
+                      > 
+                        <br/> {post.body}
+                      </Text>
+                    </Box>
                   </Box>
-                  <Box
-                    pl="8%"
-                    pr="8%"
-                    pb="3%"
-                  >
-                    <Text
-                    color="white"
-                    > 
-                      <br/> {post.body}
-                    </Text>
-                  </Box>
-                </Box>
-                {/*<Button onClick={//</div>liveEdit(post)}>  EDIT </Button>*/}
-          </div>
-          )}  
+                  {/*<Button onClick={//</div>liveEdit(post)}>  EDIT </Button>*/}
+            </div>
+            )}  
+          </Box>
         </Box>
-        <DarkModeSwitch />
       </Flex>
   </>
   )

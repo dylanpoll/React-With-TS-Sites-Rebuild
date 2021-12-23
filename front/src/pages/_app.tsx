@@ -2,24 +2,26 @@ import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../theme'
 import { AppProps } from 'next/app'
 
-//import { Provider, createClient } from 'urql'
-//import { GRAPHQL_URL } from '../constants'
-
-//const client = createClient({ 
-//  url: GRAPHQL_URL, 
-//  fetchOptions: {
-//    credentials: "include",
-//  }
-//})// in the event you have a cors error reported, 
-
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-//    <Provider value={client}>
     <ChakraProvider resetCSS theme={theme}>
       <Component {...pageProps} />
     </ChakraProvider>
-//    </Provider>
   )
 }
-
 export default MyApp
+
+/*import { Provider, createClient } from 'urql'
+import { GRAPHQL_URL } from '../constants'
+
+const client = createClient({ 
+  url: GRAPHQL_URL, 
+  fetchOptions: {
+    credentials: "include",
+  }
+})// in the event you have a cors error reported, 
+
+//    <Provider value={client}>
+//    </Provider>
+
+*/

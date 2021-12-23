@@ -1,0 +1,16 @@
+# this is used to declare domains for items to make development from local easier to push to my VPS
+VPS_IP_ADDRESS=
+VPS_IP_ADDRESS_WITH_HTTP=
+#toggle them
+USING_LOCAL_HOST=
+#vps without https attached
+VPS_DB_DOMAIN_URL_NO_HTTP_AT_FRONT=
+VPS_GRAPHQL_DOMAIN_URL_NO_HTTP_AT_FRONT=
+VPS_KEYSTORE_DOMAIN_URL__HTTP_AT_FRONT=
+#vps with https attached
+VPS_DB_DOMAIN_URL_WITH_HTTP_AT_FRONT=
+VPS_GRAPHQL_DOMAIN_URL_WITH_HTTP_AT_FRONT=
+VPS_KEYSTORE_DOMAIN_URL_WITH_HTTP_AT_FRONT=
+#for local host, I don't run a local DB or redis.
+LOCAL_GRAPHQL_DOMAIN_URL_NO_HTTP_AT_FRONT=
+LOCAL_GRAPHQL_DOMAIN_URL_WITH_HTTP_AT_FRONT=
