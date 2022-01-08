@@ -30,6 +30,8 @@ const willSaveUninitialized: boolean = process.env.COOKIE_SAVEUNINITIALIZED === 
 const apolloCors: boolean = process.env.APOLLO_CORS === 'true';
 const apolloValid: boolean = process.env.APOLLO_VALIDATE ==='true';
 
+const RUNNING_ON: any = process.env.RUNNING_ON;
+
 // this tells the system to only run debugging while in production mode, this works more or less by going in these steps as it is evaluating what the variable will equate out too before assigning it. 1) process.env.Node_ENV === process.env.NODE_ENVIRONMENT; --> true or false | 2) assign result to __prod__ | 3) assign __prod__ as export
 export const __prod__: boolean = process.env.Node_ENV === 'production';  //if in production this will return false marking in the cookie -secure :false
 
@@ -85,7 +87,7 @@ main().catch((err) => {
 
 function loadStatement(){
     console.log('  ');
-    console.log('In Live Release(if false in production mode with debugging) : ', __prod__); // console lof if in prod or not 
+    console.log('Is build in live release? (if false will currently run in production mode with debugging) : ', __prod__); // console lof if in prod or not 
     console.log('  ');
     console.log('Starting up with the following settings.');
     console.log('CORS Origin: ', process.env.CORS_ORIGIN,', and ',trustProxy);
@@ -102,5 +104,7 @@ function loadStatement(){
     console.log('  ');
     console.log('IF MIGRATIONS DONT WORK CHECK MIKRO ORM GENERATED MIGRATION FOR DOUBLE PRINTING A TABLE CHANGE....');
     console.log('For some reason this keeps occuring..');
+    console.log(' ');
+    console.log('grpahql running on : ', RUNNING_ON + process.env.EXPRESS_PORT+ "/graphql");
     console.log('  ');
 }

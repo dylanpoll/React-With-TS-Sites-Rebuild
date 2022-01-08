@@ -28,6 +28,10 @@ export class User {
     @Property({ type: "text"}) 
       password!: string;                   //passwords will be hashed and no field added as should not be seen by call
 
+  @Field(() => String)    
+    @Property({ type: "text"}) 
+      userGroup!: string;                   //passwords will be hashed and no field added as should not be seen by call
+
 //  @Field(() => String)  
 //    @Property({ type: "text" })  
 //      owned!: string;
