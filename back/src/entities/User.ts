@@ -26,11 +26,11 @@ export class User {
 
   @Field(() => String)    
     @Property({ type: "text"}) 
-      password!: string;                   //passwords will be hashed and no field added as should not be seen by call
+      password!: string;                   // passwords will be hashed and no field added as should not be seen by call
 
   @Field(() => String)    
     @Property({ type: "text"}) 
-      userGroup!: string;                   //passwords will be hashed and no field added as should not be seen by call
+      userRole!: string;                   // this will be used to designate a user as admin or non admin etc.
 
 //  @Field(() => String)  
 //    @Property({ type: "text" })  
