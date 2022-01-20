@@ -1,0 +1,11 @@
+mutation addEmail ( $options: nameEmailClassInput!) {
+    register( options: $options ) {
+        errors{
+          field
+          message
+        }
+        email{
+          ...UserFragment
+        }
+      }
+      }

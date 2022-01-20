@@ -9,7 +9,7 @@ require('dotenv/config');
 export default { //using a .env    https://mikro-orm.io/docs/configuration/#using-environment-variables 
     user: process.env.POSTGTRES_USER,
     password: process.env.POSTGTRES_PASSWORD,      
-    host: process.env.DATABASE_URL, 
+    host: process.env.DATABASE_IP, 
     migrations: {
             tableName: process.env.MIKRO_TABLENAME, // name of database table with log of executed transactions
             path: path.join(__dirname,'./migrations'), // path to the folder with migrations

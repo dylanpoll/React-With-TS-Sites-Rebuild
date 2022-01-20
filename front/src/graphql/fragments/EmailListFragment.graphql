@@ -1,0 +1,6 @@
+fragment EmailListFragment on EmailList {
+    id
+    name
+    class
+    email
+}
