@@ -13,3 +13,5 @@ vscode/*
 .history/ 
 front/.env
 front/src/constants.tsx
+back/src/migrations/Migration20220118001615.ts
+back/src/migrations/Migration20220117222604.ts
